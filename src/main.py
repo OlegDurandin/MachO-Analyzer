@@ -7,6 +7,7 @@ import argparse
 import sys
 from datetime import datetime
 from core.header_analyzer import HeaderAnalyzer
+from core.security_analyzer import SecurityAnalyzer, SeverityLevel
 from core.constants import FLAG_DESCRIPTIONS
 from typing import Optional
 import os
@@ -18,6 +19,7 @@ class MachOAnalyzer:
     def __init__(self, file_path: str):
         self.file_path = file_path
         self.header_analyzer = HeaderAnalyzer(file_path)
+        self.security_analyzer = SecurityAnalyzer(self.header_analyzer.macho, file_path)
 
     def _print_file_info(self):
         """Вывести базовую информацию о файле"""
@@ -154,6 +156,53 @@ class MachOAnalyzer:
                 console.print(sections_table)
                 console.print()
 
+    def _print_security_info(self, issues):
+        """Вывести информацию об анализе безопасности"""
+        if not issues:
+            console.print("\n[bold green]Проблем безопасности не обнаружено[/bold green]")
+            return
+
+        # Группируем проблемы по уровню серьезности
+        by_severity = {
+            SeverityLevel.CRITICAL: [],
+            SeverityLevel.WARNING: [],
+            SeverityLevel.INFO: []
+        }
+        
+        for issue in issues:
+            by_severity[issue.severity].append(issue)
+
+        # Создаем таблицу для каждого уровня серьезности
+        severity_styles = {
+            SeverityLevel.CRITICAL: "bold red",
+            SeverityLevel.WARNING: "bold yellow",
+            SeverityLevel.INFO: "bold blue"
+        }
+
+        for severity, issues_list in by_severity.items():
+            if not issues_list:
+                continue
+
+            security_table = Table(
+                show_header=True,
+                header_style=severity_styles[severity],
+                title=f"Проблемы безопасности: {severity.value}"
+            )
+            
+            security_table.add_column("Описание")
+            security_table.add_column("Детали")
+            security_table.add_column("Рекомендации")
+
+            for issue in issues_list:
+                security_table.add_row(
+                    issue.description,
+                    issue.details,
+                    issue.recommendation or "Нет рекомендаций"
+                )
+
+            console.print(security_table)
+            console.print()
+
     def analyze(self):
         """Основной метод анализа файла"""
         try:
@@ -168,6 +217,12 @@ class MachOAnalyzer:
                     console.print(f"\n[bold green]Архитектура {i} из {len(headers)}: {header.cpu_type}[/bold green]")
                 self._print_header_info(header)
                 self._print_segments_info(header.segments)
+                security_issues = self.security_analyzer.analyze(header)
+                self._print_security_info(security_issues)
+
+            # Анализ безопасности
+            #security_issues = self.security_analyzer.analyze()
+           # self._print_security_info(security_issues)
 
         except Exception as e:
             console.print(f"[red]Ошибка при анализе файла: {str(e)}[/red]")
@@ -178,17 +233,41 @@ def main():
     parser.add_argument('file', help='Path to MachO file to analyze')
     parser.add_argument('--headers', action='store_true', help='Show file headers')
     parser.add_argument('--segments', action='store_true', help='Show segments and sections')
-    parser.add_argument('--imports', action='store_true', help='Show imports')
-    parser.add_argument('--exports', action='store_true', help='Show exports')
-    parser.add_argument('--security', action='store_true', help='Check security mechanisms')
-    parser.add_argument('--patterns', action='store_true', help='Search for known patterns')
-    parser.add_argument('--debug-info', action='store_true', help='Check for debug information')
+    parser.add_argument('--security', action='store_true', help='Show security analysis')
+    parser.add_argument('--all', action='store_true', help='Show all information')
     
     args = parser.parse_args()
 
     try:
         analyzer = MachOAnalyzer(args.file)
-        analyzer.analyze()
+        
+        if args.all:
+            analyzer.analyze()
+        else:
+            if args.headers or args.segments or args.security:
+                analyzer._print_file_info()
+                headers = analyzer.header_analyzer.analyze_headers()
+                
+                if args.headers:
+                    for i, header in enumerate(headers, 1):
+                        if len(headers) > 1:
+                            console.print(f"\n[bold green]Архитектура {i} из {len(headers)}: {header.cpu_type}[/bold green]")
+                        analyzer._print_header_info(header)
+                
+                if args.segments:
+                    for i, header in enumerate(headers, 1):
+                        if len(headers) > 1:
+                            console.print(f"\n[bold green]Архитектура {i} из {len(headers)}: {header.cpu_type}[/bold green]")
+                        analyzer._print_segments_info(header.segments)
+                
+                if args.security:
+                    for i, header in enumerate(headers, 1):
+                        if len(headers) > 1:
+                            console.print(f"\n[bold green]Архитектура {i} из {len(headers)}: {header.cpu_type}[/bold green]")
+                            security_issues = analyzer.security_analyzer.analyze(header)
+                            analyzer._print_security_info(security_issues)
+            else:
+                analyzer.analyze()
     except Exception as e:
         console.print(f"[red]Error: {str(e)}[/red]")
         sys.exit(1)

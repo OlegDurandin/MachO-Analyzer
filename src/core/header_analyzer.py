@@ -78,7 +78,8 @@ class HeaderAnalyzer:
         stat = os.stat(self.file_path)
         return stat.st_size, datetime.fromtimestamp(stat.st_mtime)
     
-    def _get_cpu_type(self, cputype: int) -> str:
+    @staticmethod
+    def _get_cpu_type(cputype: int) -> str:
         """Получить тип CPU"""
         cpu_types = {
             CPU_TYPE_X86: "x86",
@@ -163,7 +164,8 @@ class HeaderAnalyzer:
             flags_list.append("MH_APP_EXTENSION_SAFE")
         return flags_list
     
-    def _get_magic(self, header) -> str:
+    @staticmethod
+    def _get_magic(header) -> str:
         """Получить magic number"""
         magic_numbers = {
             MH_MAGIC: "MH_MAGIC",
@@ -188,11 +190,11 @@ class HeaderAnalyzer:
             # Анализируем сегменты
             segments = self.segment_analyzer.analyze_segments(header)
             header_info = MachHeaderInfo(
-                cpu_type=self._get_cpu_type(header.header.cputype),
+                cpu_type=HeaderAnalyzer._get_cpu_type(header.header.cputype),
                 cpu_subtype=str(header.header.cpusubtype),
                 file_type=self._get_file_type(header.header.filetype),
                 flags=self._get_flags(header.header.flags),
-                magic=self._get_magic(header),
+                magic=HeaderAnalyzer._get_magic(header),
                 ncmds=header.header.ncmds,
                 sizeofcmds=header.header.sizeofcmds,
                 is_64_bit=is_64_bit,
