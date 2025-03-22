@@ -6,9 +6,10 @@ from macholib.mach_o import *
 import struct
 from pathlib import Path
 from .header_analyzer import HeaderAnalyzer
-from .constants import VM_PROT_READ, VM_PROT_WRITE, VM_PROT_EXECUTE
+from .constants import VM_PROT_READ, VM_PROT_WRITE, VM_PROT_EXECUTE, CPU_TYPE_ARM64
 from .sign_analyzer import SignAnalyzer, SignStatus, SignType
 from .symbol_analyzer import SymbolAnalyzer, SymbolType
+from .debug_analyzer import DebugAnalyzer
 
 
 LC_SEGMENT_SPLIT_INFO = 0x1E
@@ -35,6 +36,13 @@ class SecurityAnalyzer:
     def __init__(self, macho: MachO, file_path: str):
         self.macho = macho
         self.file_path = file_path
+        self.vulnerable_functions = {
+            'gets': 'Использование небезопасной функции gets()',
+            'strcpy': 'Использование небезопасной функции strcpy()',
+            'strcat': 'Использование небезопасной функции strcat()',
+            'sprintf': 'Использование небезопасной функции sprintf()',
+            'vsprintf': 'Использование небезопасной функции vsprintf()'
+        }
 
     def _check_ASLR_mechanism(self, header) -> List[SecurityIssue]:
         # ASLR (Position Independent Executable)
@@ -824,14 +832,176 @@ class SecurityAnalyzer:
         
         return issues
 
-    def analyze(self, target_header : MachOHeader ) -> List[SecurityIssue]:
+    def _check_debug_info(self, header) -> List[SecurityIssue]:
+        """Проверка наличия отладочной информации"""
+        issues = []
+        debug_analyzer = DebugAnalyzer(self.macho, self.file_path)
+        debug_info = debug_analyzer.analyze()
+        
+        if debug_info.has_debug_symbols or debug_info.has_dwarf_info:
+            details = []
+            if debug_info.has_debug_symbols:
+                details.append("отладочные символы")
+            if debug_info.has_dwarf_info:
+                details.append("DWARF информация")
+            
+            issues.append(SecurityIssue(
+                description="Наличие отладочной информации",
+                details=f"Обнаружена отладочная информация: {', '.join(details)}",
+                severity=SeverityLevel.INFO,
+                recommendation="Рекомендуется удалить отладочную информацию перед релизом",
+                is_problem=False
+            ))
+        return issues
+        
+    def _check_vulnerable_functions(self, header) -> List[SecurityIssue]:
+        """Проверка наличия уязвимых функций"""
+        issues = []
+        for cmd in header.commands:
+            if cmd[0].cmd == LC_SYMTAB:
+                symtab = cmd[1]
+                strtab = None
+                
+                # Находим таблицу строк
+                for str_cmd in header.commands:
+                    if str_cmd[0].cmd == LC_SYMTAB:
+                        strtab = str_cmd[1]
+                        break
+                        
+                if not strtab:
+                    continue
+                    
+                # Читаем таблицу строк
+                with open(self.file_path, 'rb') as f:
+                    f.seek(strtab.stroff)
+                    string_table = f.read(strtab.strsize)
+                    
+                    # Проверяем наличие уязвимых функций
+                    for func_name in self.vulnerable_functions:
+                        if func_name.encode() in string_table:
+                            issues.append(SecurityIssue(
+                                description=self.vulnerable_functions[func_name],
+                                details=f"Обнаружено использование функции {func_name}",
+                                severity=SeverityLevel.WARNING,
+                                recommendation=f"Рекомендуется использовать безопасную альтернативу {func_name} (например, gets_s, strcpy_s)",
+                                is_problem=True
+                            ))
+        return issues
+        
+    def _check_anti_debug(self, header) -> List[SecurityIssue]:
+        """Проверка наличия анти-отладочных техник"""
+        issues = []
+        anti_debug_functions = {
+            'ptrace': 'Использование ptrace для анти-отладки',
+            'sysctl': 'Проверка наличия отладчика через sysctl',
+            'task_for_pid': 'Проверка процесса через task_for_pid'
+        }
+        
+        for cmd in header.commands:
+            if cmd[0].cmd == LC_SYMTAB:
+                symtab = cmd[1]
+                strtab = None
+                
+                for str_cmd in header.commands:
+                    if str_cmd[0].cmd == LC_SYMTAB:
+                        strtab = str_cmd[1]
+                        break
+                        
+                if not strtab:
+                    continue
+                    
+                with open(self.file_path, 'rb') as f:
+                    f.seek(strtab.stroff)
+                    string_table = f.read(strtab.strsize)
+                    
+                    for func_name in anti_debug_functions:
+                        if func_name.encode() in string_table:
+                            issues.append(SecurityIssue(
+                                description=anti_debug_functions[func_name],
+                                details=f"Обнаружено использование функции {func_name}",
+                                severity=SeverityLevel.INFO,
+                                recommendation="Убедитесь, что это не используется для вредоносных целей",
+                                is_problem=False
+                            ))
+        return issues
+        
+    def _check_safe_stack(self) -> List[SecurityIssue]:
+        issues = []
+        
+        # Safe Stack не поддерживается на macOS ARM64
+        if self.macho.headers[0].header.cputype == CPU_TYPE_ARM64:
+            issues.append(SecurityIssue(
+                description="Safe Stack не поддерживается",
+                details="Safe Stack не поддерживается на macOS ARM64",
+                severity=SeverityLevel.INFO,
+                recommendation="Safe Stack доступен только на x86_64 macOS",
+                is_problem=False
+            ))
+            return issues
+        
+        # Проверяем наличие секции __safestack
+        has_safestack_section = False
+        for cmd in self.macho.headers[0].commands:
+            if cmd[0].cmd == LC_SEGMENT_64:
+                for section in cmd[2]:
+                    if section.sectname.decode('utf-8').rstrip('\x00') == "__safestack":
+                        has_safestack_section = True
+                        break
+            if has_safestack_section:
+                break
+        
+        # Проверяем наличие символов Safe Stack
+        has_safestack_symbols = False
+        for cmd in self.macho.headers[0].commands:
+            if cmd[0].cmd == LC_SYMTAB:
+                symtab = cmd[1]
+                try:
+                    with open(self.file_path, 'rb') as f:
+                        f.seek(symtab.stroff)
+                        string_table = f.read(symtab.strsize)
+                        
+                        if string_table:
+                            strings = string_table.decode('utf-8', errors='ignore')
+                            safe_stack_symbols = [
+                                '__safestack_init',
+                                '__safestack_pointer',
+                                '__safestack_guard',
+                                '__safestack_check'
+                            ]
+                            for symbol in safe_stack_symbols:
+                                if symbol in strings:
+                                    has_safestack_symbols = True
+                                    break
+                except (IOError, OSError):
+                    continue
+        
+        if has_safestack_section and has_safestack_symbols:
+            issues.append(SecurityIssue(
+                description="Safe Stack включен",
+                details="Обнаружена защита Safe Stack",
+                severity=SeverityLevel.INFO,
+                recommendation="Safe Stack успешно включен",
+                is_problem=False
+            ))
+        else:
+            issues.append(SecurityIssue(
+                description="Отсутствует Safe Stack",
+                details="Отсутствует защита Safe Stack",
+                severity=SeverityLevel.WARNING,
+                recommendation="Рекомендуется включить -fsanitize=safe-stack при компиляции (только для x86_64)",
+                is_problem=True
+            ))
+        
+        return issues
+
+    def analyze(self, target_header) -> List[SecurityIssue]:
         """Анализ всех механизмов защиты"""
         print("Security analysis")
         all_issues = []
         
         for header in self.macho.headers:
             t1 = HeaderAnalyzer._get_cpu_type(header.header.cputype)
-            t2 = target_header.cpu_type            
+            t2 = HeaderAnalyzer._get_cpu_type(target_header.header.cputype)
             
             if t1 != t2:
                 continue
@@ -847,6 +1017,9 @@ class SecurityAnalyzer:
             all_issues.extend(self._check_relro(header))
 
             all_issues.extend(self._check_fortify_source(header))
+            
+            # Добавляем проверку Safe Stack
+            all_issues.extend(self._check_safe_stack())
 
             # Механизмы подписи кода
             all_issues.extend(self._check_code_signing())
@@ -862,5 +1035,12 @@ class SecurityAnalyzer:
             
             # Анализ сетевой активности
             all_issues.extend(self._check_network_activity(header))
+            
+            # Добавляем новые проверки
+            all_issues.extend(self._check_debug_info(header))
+
+            all_issues.extend(self._check_vulnerable_functions(header))
+            
+            all_issues.extend(self._check_anti_debug(header))
         
         return all_issues 

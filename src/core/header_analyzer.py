@@ -30,9 +30,9 @@ class MachHeaderInfo:
 class HeaderAnalyzer:
     """Анализатор заголовков Mach-O файлов"""
     
-    def __init__(self, file_path: str):
-        self.file_path = file_path
-        self.macho = MachO(file_path)
+    def __init__(self, macho):
+        self.macho = macho
+        self.file_path = macho.filename
         self.segment_analyzer = SegmentAnalyzer(self.macho)
         
     def _get_load_command_data(self, header) -> dict:
@@ -73,10 +73,14 @@ class HeaderAnalyzer:
         
         return result
         
-    def get_file_info(self) -> tuple[int, datetime]:
-        """Получить базовую информацию о файле"""
-        stat = os.stat(self.file_path)
-        return stat.st_size, datetime.fromtimestamp(stat.st_mtime)
+    def get_file_info(self) -> dict:
+        """Получение базовой информации о файле"""
+        stats = os.stat(self.file_path)
+        return {
+            'size': stats.st_size / 1024,  # размер в КБ
+            'size_bytes': stats.st_size,    # размер в байтах
+            'modification_date': datetime.fromtimestamp(stats.st_mtime).strftime('%Y-%m-%d %H:%M:%S')
+        }
     
     @staticmethod
     def _get_cpu_type(cputype: int) -> str:
@@ -149,7 +153,7 @@ class HeaderAnalyzer:
         if flags & MH_ROOT_SAFE:
             flags_list.append("MH_ROOT_SAFE")
         if flags & MH_SETUID_SAFE:
-            flags_list.append("MH_ALLOW_STACK_EXECUTION")
+            flags_list.append("MH_SETUID_SAFE")
         if flags & MH_NO_REEXPORTED_DYLIBS:
             flags_list.append("MH_NO_REEXPORTED_DYLIBS")
         if flags & MH_PIE:
@@ -177,35 +181,80 @@ class HeaderAnalyzer:
         }
         return magic_numbers.get(header.MH_MAGIC, f"Unknown ({header.MH_MAGIC})")
     
-    def analyze_headers(self) -> List[MachHeaderInfo]:
-        """Анализировать все заголовки в файле"""
-        headers = []
-        
+    def analyze(self) -> List[Dict]:
+        """Анализ всех заголовков"""
+        result = []
         for header in self.macho.headers:
-            is_64_bit = header.MH_MAGIC in (MH_MAGIC_64, MH_CIGAM_64)
-            
-            # Получаем дополнительные данные из load commands
-            load_cmd_data = self._get_load_command_data(header)
-            
-            # Анализируем сегменты
-            segments = self.segment_analyzer.analyze_segments(header)
-            header_info = MachHeaderInfo(
-                cpu_type=HeaderAnalyzer._get_cpu_type(header.header.cputype),
-                cpu_subtype=str(header.header.cpusubtype),
-                file_type=self._get_file_type(header.header.filetype),
-                flags=self._get_flags(header.header.flags),
-                magic=HeaderAnalyzer._get_magic(header),
-                ncmds=header.header.ncmds,
-                sizeofcmds=header.header.sizeofcmds,
-                is_64_bit=is_64_bit,
-                reserved=header.header.reserved,
-                uuid=load_cmd_data['uuid'],
-                min_version=load_cmd_data['min_version'],
-                sdk_version=load_cmd_data['sdk_version'],
-                source_version=load_cmd_data['source_version'],
-                build_version=load_cmd_data['build_version'],
-                segments=segments
-            )
-            headers.append(header_info)
-            
-        return headers 
+            header_info = {
+                'header': header,
+                'cpu_type': self._get_cpu_type(header.header.cputype),
+                'segments': self.segment_analyzer.analyze_segments(header)
+            }
+            result.append(header_info)
+        return result 
+
+    def get_segments(self, header):
+        """Получение информации о сегментах"""
+        segments = []
+        for cmd in header.commands:
+            if cmd[0].cmd in (LC_SEGMENT, LC_SEGMENT_64):
+                try:
+                    segment = cmd[2]  # Это сегмент
+                    segments.append({
+                        'name': cmd[1].segname.decode('utf-8').strip('\x00'),
+                        'vm_address': cmd[1].vmaddr,
+                        'vm_size': cmd[1].vmsize,
+                        'file_offset': cmd[1].fileoff,
+                        'file_size': cmd[1].filesize,
+                        'max_prot': self._get_protection_flags(cmd[1].maxprot),
+                        'init_prot': self._get_protection_flags(cmd[1].initprot),
+                        'sections': [
+                            {
+                                'name': sect.sectname.decode('utf-8').strip('\x00'),
+                                'address': sect.addr,
+                                'size': sect.size,
+                                'flags': self._get_section_flags(sect.flags)
+                            }
+                            for sect in segment
+                        ]
+                    })
+                except Exception as e:
+                    print(f"Ошибка при обработке сегмента: {str(e)}")
+                    continue
+        return segments
+
+    def _get_protection_flags(self, prot):
+        """Получение флагов защиты"""
+        flags = []
+        if prot & VM_PROT_READ:
+            flags.append('r')
+        if prot & VM_PROT_WRITE:
+            flags.append('w')
+        if prot & VM_PROT_EXECUTE:
+            flags.append('x')
+        return ''.join(flags) if flags else '---'
+
+    def _get_section_flags(self, flags):
+        """Получение флагов секции"""
+        result = []
+        if flags & S_ATTR_PURE_INSTRUCTIONS:
+            result.append('PURE_INSTRUCTIONS')
+        if flags & S_ATTR_NO_TOC:
+            result.append('NO_TOC')
+        if flags & S_ATTR_STRIP_STATIC_SYMS:
+            result.append('STRIP_STATIC_SYMS')
+        if flags & S_ATTR_NO_DEAD_STRIP:
+            result.append('NO_DEAD_STRIP')
+        if flags & S_ATTR_LIVE_SUPPORT:
+            result.append('LIVE_SUPPORT')
+        if flags & S_ATTR_SELF_MODIFYING_CODE:
+            result.append('SELF_MODIFYING_CODE')
+        if flags & S_ATTR_DEBUG:
+            result.append('DEBUG')
+        if flags & S_ATTR_SOME_INSTRUCTIONS:
+            result.append('SOME_INSTRUCTIONS')
+        if flags & S_ATTR_EXT_RELOC:
+            result.append('EXT_RELOC')
+        if flags & S_ATTR_LOC_RELOC:
+            result.append('LOC_RELOC')
+        return result 

@@ -25,6 +25,8 @@ class Symbol:
     is_weak: bool
     is_undefined: bool
     library: Optional[str] = None  # Для импортируемых символов
+    is_exported: bool = False  # Флаг экспорта
+    export_flags: Optional[str] = None  # Флаги экспорта
 
 
 @dataclass
@@ -71,23 +73,29 @@ class SymbolAnalyzer:
                 return full_path
         return None
         
-    def _get_symbol_type(self, n_type: int, n_desc: int) -> Tuple[SymbolType, bool, bool]:
+    def _get_symbol_type(self, n_type: int, n_desc: int) -> Tuple[SymbolType, bool, bool, bool, Optional[str]]:
         """Определение типа символа на основе n_type и n_desc"""
         is_weak = bool(n_desc & N_WEAK_DEF)
         is_undefined = bool(n_desc & N_WEAK_REF)
+        is_exported = bool(n_type & N_EXT) and not bool(n_type & N_PEXT)  # Экспортируемый, но не приватный
+        export_flags = []
         
+        # Пропускаем отладочные символы
         if n_type & N_STAB:
-            return SymbolType.UNKNOWN, is_weak, is_undefined
+            return SymbolType.UNKNOWN, False, False, False, None
             
+        if n_desc & N_WEAK_REF:
+            export_flags.append("Weak")
+        if n_desc & N_SYMBOL_RESOLVER:
+            export_flags.append("Resolver")
+        if n_desc & N_REF_TO_WEAK:
+            export_flags.append("WeakRef")
         if n_type & N_PEXT:
-            return SymbolType.LOCAL, is_weak, is_undefined
+            export_flags.append("Private")
             
-        if n_type & N_EXT:
-            if is_weak:
-                return SymbolType.WEAK, is_weak, is_undefined
-            return SymbolType.GLOBAL, is_weak, is_undefined
-            
-        return SymbolType.UNKNOWN, is_weak, is_undefined
+        return (SymbolType.GLOBAL if n_type & N_EXT else SymbolType.LOCAL,
+                is_weak, is_undefined, is_exported,
+                ", ".join(export_flags) if export_flags else None)
         
     def _get_section_name(self, header, sect_idx: int) -> Optional[str]:
         """Получение имени секции по индексу"""
@@ -128,7 +136,7 @@ class SymbolAnalyzer:
                         if header.header.magic in (MH_MAGIC, MH_CIGAM):
                             n_strx, n_type, n_sect, n_desc, n_value = struct.unpack('<IBBHI', f.read(12))
                         else:
-                            n_strx, n_type, n_sect, n_desc, n_value = struct.unpack('<IBBHQ', f.read(16))
+                            n_strx, n_type, n_desc, n_sect, n_value = struct.unpack('<IBBHQ', f.read(16))
                             
                         # Получаем имя символа
                         if n_strx == 0:  # Пропускаем пустые символы
@@ -151,7 +159,7 @@ class SymbolAnalyzer:
                                 continue
                         
                         # Определяем тип символа
-                        sym_type, is_weak, is_undefined = self._get_symbol_type(n_type, n_desc)
+                        sym_type, is_weak, is_undefined, is_exported, export_flags = self._get_symbol_type(n_type, n_desc)
                         
                         # Получаем имя секции
                         section = self._get_section_name(header, n_sect) if n_sect > 0 else None
@@ -162,7 +170,9 @@ class SymbolAnalyzer:
                             section=section,
                             address=n_value if n_value != 0 else None,
                             is_weak=is_weak,
-                            is_undefined=is_undefined
+                            is_undefined=is_undefined,
+                            is_exported=is_exported,
+                            export_flags=export_flags
                         ))
                         
         return symbols
@@ -195,9 +205,6 @@ class SymbolAnalyzer:
                 
         return libraries
         
-    
-    
-    
     def analyze(self) -> Tuple[List[Symbol], List[LibraryInfo]]:
         """Анализ символов и импортов"""
         symbols = []

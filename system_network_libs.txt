@@ -1,0 +1,13 @@
+/Library/Caches/com.microsoft.autoupdate.helper/Clones.noindex/Microsoft Excel.app/Contents/SharedSupport/Microsoft.Mashup.Container.app/Contents/SharedSupport/libmacwebdialogwindow.dylib
+/Library/Caches/com.microsoft.autoupdate.helper/Clones.noindex/Microsoft Excel.app/Contents/SharedSupport/Microsoft.Mashup.Container.app/Contents/SharedSupport/libsystem.net.security.native.dylib
+/Library/Caches/com.microsoft.autoupdate.helper/Clones.noindex/Microsoft Excel.app/Contents/SharedSupport/Microsoft.Mashup.Container.app/Contents/SharedSupport/libsystem.security.cryptography.native.openssl.dylib
+/Library/Developer/CommandLineTools/Library/PrivateFrameworks/LLDB.framework/Versions/A/Resources/liblldbCoreDevicePlugin.dylib
+/Library/Developer/CommandLineTools/usr/lib/libIndexStore.dylib
+/Library/Developer/CommandLineTools/usr/lib/libLTO.dylib
+/Library/Developer/CommandLineTools/usr/lib/libSwiftDriver.dylib
+/Library/Developer/CommandLineTools/usr/lib/libcodedirectory.dylib
+/Library/Developer/CommandLineTools/usr/lib/libtapi.dylib
+/Library/Developer/CommandLineTools/usr/lib/libxcrun.dylib
+/Library/Java/JavaVirtualMachines/jdk-17.jdk/Contents/Home/lib/libextnet.dylib
+/Library/Java/JavaVirtualMachines/jdk-17.jdk/Contents/Home/lib/libnet.dylib
+/System/Library/Tcl/8.5/tls1.6.1/libtls1.6.1.dylib
