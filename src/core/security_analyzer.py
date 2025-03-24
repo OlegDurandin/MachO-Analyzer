@@ -315,6 +315,103 @@ class SecurityAnalyzer:
 
         return issues
 
+    def _check_canaries(self, header) -> List[SecurityIssue]:
+        """Проверка наличия и реализации канареек"""
+        issues = []
+        
+        # Проверяем наличие канареек в секции __DATA
+        for cmd in header.commands:
+            if cmd[0].cmd == LC_SEGMENT_64:
+                segment = cmd[1]
+                sections = cmd[2]
+                if segment.segname.decode('utf-8').rstrip('\x00') == '__DATA':
+                    for section in sections:
+                        if section.sectname.decode('utf-8').rstrip('\x00') == '__bss':
+                            # Ищем канарейки в BSS секции
+                            try:
+                                with open(self.file_path, 'rb') as f:
+                                    f.seek(section.offset)
+                                    data = f.read(section.size)
+                                    if data:
+                                        # Ищем характерные паттерны канареек
+                                        patterns = [
+                                            b'\x00\x00\x00\x00\x00\x00\x00\x00',  # 64-bit zero canary
+                                            b'\x00\x00\x00\x00',                  # 32-bit zero canary
+                                            b'\xff\xff\xff\xff\xff\xff\xff\xff',  # 64-bit terminator canary
+                                            b'\xff\xff\xff\xff'                   # 32-bit terminator canary
+                                        ]
+                                        
+                                        for pattern in patterns:
+                                            if pattern in data:
+                                                issues.append(SecurityIssue(
+                                                    description="Обнаружена канарейка",
+                                                    severity=SeverityLevel.INFO,
+                                                    details=f"Найдена канарейка типа {pattern.hex()} в секции __bss",
+                                                    is_problem=False
+                                                ))
+                                                break
+                            except (IOError, OSError) as e:
+                                issues.append(SecurityIssue(
+                                    description="Ошибка при анализе канареек",
+                                    severity=SeverityLevel.WARNING,
+                                    details=f"Не удалось прочитать секцию __bss: {str(e)}",
+                                    is_problem=True
+                                ))
+
+        # Проверяем наличие функций, связанных с канарейками
+        canary_functions = [
+            '__stack_chk_fail',
+            '__stack_chk_guard',
+            '__stack_chk_guard_setup'
+        ]
+        
+        for function in canary_functions:
+            if self._find_symbol(function):
+                issues.append(SecurityIssue(
+                    description="Обнаружена функция защиты канареек",
+                    severity=SeverityLevel.INFO,
+                    details=f"Найдена функция {function}",
+                    is_problem=False
+                ))
+
+        if not issues:
+            issues.append(SecurityIssue(
+                description="Канарейки не обнаружены",
+                severity=SeverityLevel.WARNING,
+                details="Не найдено признаков использования канареек",
+                is_problem=True,
+                recommendation="Рекомендуется добавить защиту канареек для предотвращения переполнения стека"
+            ))
+
+        return issues
+
+    def _find_symbol(self, symbol_name: str) -> bool:
+        """Поиск символа в бинарном файле"""
+        for header in self.macho.headers:
+            for cmd in header.commands:
+                if cmd[0].cmd == LC_SYMTAB:
+                    symtab = cmd[1]
+                    strtab = None
+                    
+                    # Находим таблицу строк
+                    for str_cmd in header.commands:
+                        if str_cmd[0].cmd == LC_SYMTAB:
+                            strtab = str_cmd[1]
+                            break
+                    
+                    if not strtab:
+                        continue
+                    
+                    # Читаем таблицу строк
+                    with open(self.file_path, 'rb') as f:
+                        f.seek(strtab.stroff)
+                        string_table = f.read(strtab.strsize)
+                        
+                        if symbol_name.encode() in string_table:
+                            return True
+        
+        return False
+
     def _check_code_signing(self) -> List[SecurityIssue]:
         """Проверка механизмов подписи кода"""
         issues = []
@@ -889,42 +986,120 @@ class SecurityAnalyzer:
         return issues
         
     def _check_anti_debug(self, header) -> List[SecurityIssue]:
-        """Проверка наличия анти-отладочных техник"""
+        """Проверка наличия антиотладочных техник"""
         issues = []
-        anti_debug_functions = {
-            'ptrace': 'Использование ptrace для анти-отладки',
-            'sysctl': 'Проверка наличия отладчика через sysctl',
-            'task_for_pid': 'Проверка процесса через task_for_pid'
-        }
+        
+        # Проверяем наличие известных антиотладочных функций
+        anti_debug_functions = [
+            'ptrace',           # Прямой вызов ptrace
+            'sysctl',          # Проверка через sysctl
+            'task_for_pid',    # Проверка через task_for_pid
+            'fork',            # Проверка через fork
+            'getppid',         # Проверка родительского процесса
+            'isatty',          # Проверка через isatty
+            'ioctl',           # Проверка через ioctl
+            'syscall',         # Прямой вызов syscall
+            'mach_task_self',  # Проверка через mach_task_self
+            'mach_thread_self' # Проверка через mach_thread_self
+        ]
+        
+        for function in anti_debug_functions:
+            if self._find_symbol(function):
+                issues.append(SecurityIssue(
+                    description=f"Обнаружена антиотладочная функция: {function}",
+                    severity=SeverityLevel.WARNING,
+                    details=f"Найдена функция {function}, которая может использоваться для обнаружения отладчика",
+                    is_problem=True
+                ))
+
+        # Проверяем наличие строк, связанных с отладкой
+        debug_strings = [
+            b'debug',
+            b'gdb',
+            b'lldb',
+            b'xcode',
+            b'debugger',
+            b'ptrace',
+            b'IDA',
+            b'Hopper',
+            b'radare2',
+            b'Ghidra'
+        ]
         
         for cmd in header.commands:
-            if cmd[0].cmd == LC_SYMTAB:
-                symtab = cmd[1]
-                strtab = None
-                
-                for str_cmd in header.commands:
-                    if str_cmd[0].cmd == LC_SYMTAB:
-                        strtab = str_cmd[1]
-                        break
-                        
-                if not strtab:
-                    continue
-                    
-                with open(self.file_path, 'rb') as f:
-                    f.seek(strtab.stroff)
-                    string_table = f.read(strtab.strsize)
-                    
-                    for func_name in anti_debug_functions:
-                        if func_name.encode() in string_table:
-                            issues.append(SecurityIssue(
-                                description=anti_debug_functions[func_name],
-                                details=f"Обнаружено использование функции {func_name}",
-                                severity=SeverityLevel.INFO,
-                                recommendation="Убедитесь, что это не используется для вредоносных целей",
-                                is_problem=False
-                            ))
-        return issues
+            if cmd[0].cmd == LC_SEGMENT_64:
+                segment = cmd[1]
+                sections = cmd[2]
+                for section in sections:
+                    try:
+                        with open(self.file_path, 'rb') as f:
+                            f.seek(section.offset)
+                            data = f.read(section.size)
+                            if data:
+                                for string in debug_strings:
+                                    if string in data:
+                                        section_name = section.sectname.decode('utf-8').rstrip('\x00')
+                                        string_value = string.decode('utf-8', errors='ignore')
+                                        issues.append(SecurityIssue(
+                                            description="Обнаружены строки, связанные с отладкой",
+                                            severity=SeverityLevel.WARNING,
+                                            details=f"Найдена строка {string_value} в секции {section_name}",
+                                            is_problem=True
+                                        ))
+                    except (IOError, OSError) as e:
+                        section_name = section.sectname.decode('utf-8').rstrip('\x00')
+                        issues.append(SecurityIssue(
+                            description="Ошибка при анализе строк",
+                            severity=SeverityLevel.WARNING,
+                            details=f"Не удалось прочитать секцию {section_name}: {str(e)}",
+                            is_problem=True
+                        ))
+
+        # Проверяем наличие сигналов, связанных с отладкой
+        debug_signals = [
+            'SIGTRAP',
+            'SIGSTOP',
+            'SIGTSTP',
+            'SIGTTIN',
+            'SIGTTOU'
+        ]
         
+        for signal in debug_signals:
+            if self._find_symbol(signal):
+                issues.append(SecurityIssue(
+                    description=f"Обнаружен сигнал отладки: {signal}",
+                    severity=SeverityLevel.WARNING,
+                    details=f"Найден сигнал {signal}, который может использоваться для обнаружения отладчика",
+                    is_problem=True
+                ))
+
+        # Проверяем наличие проверок времени выполнения
+        timing_functions = [
+            'mach_absolute_time',
+            'gettimeofday',
+            'clock_gettime',
+            'time'
+        ]
+        
+        for function in timing_functions:
+            if self._find_symbol(function):
+                issues.append(SecurityIssue(
+                    description=f"Обнаружена функция измерения времени: {function}",
+                    severity=SeverityLevel.WARNING,
+                    details=f"Найдена функция {function}, которая может использоваться для обнаружения замедления при отладке",
+                    is_problem=True
+                ))
+
+        if not issues:
+            issues.append(SecurityIssue(
+                description="Антиотладочные техники не обнаружены",
+                severity=SeverityLevel.INFO,
+                details="Не найдено признаков использования антиотладочных техник",
+                is_problem=False
+            ))
+
+        return issues
+
     def _check_safe_stack(self) -> List[SecurityIssue]:
         issues = []
         
@@ -995,52 +1170,42 @@ class SecurityAnalyzer:
         return issues
 
     def analyze(self, target_header) -> List[SecurityIssue]:
-        """Анализ всех механизмов защиты"""
-        print("Security analysis")
-        all_issues = []
+        """Проведение полного анализа безопасности"""
+        issues = []
         
-        for header in self.macho.headers:
-            t1 = HeaderAnalyzer._get_cpu_type(header.header.cputype)
-            t2 = HeaderAnalyzer._get_cpu_type(target_header.header.cputype)
-            
-            if t1 != t2:
-                continue
-            # Базовые механизмы защиты
-            all_issues.extend(self._check_base_security(header))
-            
-            all_issues.extend(self._check_ASLR_mechanism(header))
-            
-            all_issues.extend(self._check_nx(header))
-            
-            all_issues.extend(self.__check_stack_canary(header))
-
-            all_issues.extend(self._check_relro(header))
-
-            all_issues.extend(self._check_fortify_source(header))
-            
-            # Добавляем проверку Safe Stack
-            all_issues.extend(self._check_safe_stack())
-
-            # Механизмы подписи кода
-            all_issues.extend(self._check_code_signing())
-            
-            # Механизмы усиления защиты
-            all_issues.extend(self._check_hardening(header))
-            
-            # Механизмы шифрования
-            all_issues.extend(self._check_encryption(header))
-            
-            # Анализ символов и импортов
-            all_issues.extend(self._check_symbols_and_imports())
-            
-            # Анализ сетевой активности
-            all_issues.extend(self._check_network_activity(header))
-            
-            # Добавляем новые проверки
-            all_issues.extend(self._check_debug_info(header))
-
-            all_issues.extend(self._check_vulnerable_functions(header))
-            
-            all_issues.extend(self._check_anti_debug(header))
+        # Базовые проверки безопасности
+        issues.extend(self._check_base_security(target_header))
         
-        return all_issues 
+        # Проверка механизмов защиты
+        issues.extend(self._check_ASLR_mechanism(target_header))
+        issues.extend(self._check_nx(target_header))
+        issues.extend(self._check_relro(target_header))
+        issues.extend(self._check_fortify_source(target_header))
+        issues.extend(self.__check_stack_canary(target_header))
+        issues.extend(self._check_canaries(target_header))  # Добавляем проверку канареек
+        
+        # Проверка подписи кода
+        issues.extend(self._check_code_signing())
+        
+        # Проверка шифрования
+        issues.extend(self._check_encryption(target_header))
+        
+        # Проверка символов и импортов
+        issues.extend(self._check_symbols_and_imports())
+        
+        # Проверка сетевой активности
+        issues.extend(self._check_network_activity(target_header))
+        
+        # Проверка отладочной информации
+        issues.extend(self._check_debug_info(target_header))
+        
+        # Проверка уязвимых функций
+        issues.extend(self._check_vulnerable_functions(target_header))
+        
+        # Проверка антиотладочных техник
+        issues.extend(self._check_anti_debug(target_header))
+        
+        # Проверка safe stack
+        issues.extend(self._check_safe_stack())
+        
+        return issues 
