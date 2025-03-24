@@ -1,0 +1,2322 @@
+╭──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╮
+│ Файл: /Users/oleg/Downloads/169ea42211969e2021784c9af170bdfe4b1fb29ae3e2c96f1bc87563f42bd9dc.macho                                                                                                                                           │
+╰──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯
+Размер: 1.01 Кб (1030.359375 байт)
+Дата модификации: 2025-03-24 13:30:12
+
+        Основная информация        
+┏━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━┓
+┃ Параметр          ┃ Значение    ┃
+┡━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━┩
+│ Magic             │ MH_CIGAM_64 │
+│ Битность          │ 64-bit      │
+│ CPU Type          │ x86_64      │
+│ CPU Subtype       │ 3           │
+│ Тип файла         │ Executable  │
+│ Количество команд │ 42          │
+│ Размер команд     │ 5408 байт   │
+└───────────────────┴─────────────┘
+
+                  Версии и идентификаторы                   
+┏━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+┃ Параметр              ┃ Значение                         ┃
+┡━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┩
+│ UUID                  │ 1609837be469347c8dfc3afc79fd5598 │
+│ Минимальная версия OS │ 10.14.4                          │
+│ Версия SDK            │ 15.2.0                           │
+│ Версия исходного кода │ 0.0.0.0.0                        │
+└───────────────────────┴──────────────────────────────────┘
+
+                                Флаги                                 
+┏━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+┃ Флаг                   ┃ Описание                                  ┃
+┡━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┩
+│ MH_NOUNDEFS            │ Не содержит неопределенных символов       │
+│ MH_DYLDLINK            │ Динамически связанный                     │
+│ MH_TWOLEVEL            │ Двухуровневое пространство имен           │
+│ MH_BINDS_TO_WEAK       │ Связывается со слабыми символами          │
+│ MH_PIE                 │ Position Independent Executable           │
+│ MH_HAS_TLV_DESCRIPTORS │ Содержит дескрипторы Thread Local Storage │
+└────────────────────────┴───────────────────────────────────────────┘
+
+
+Сводка по сегментам:
+                                          Сводка по сегментам                                           
+┏━━━━━━━━━━━━┳━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━┳━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━┳━━━━━━━━┓
+┃ Имя        ┃ VM адрес    ┃ VM размер          ┃ Смещение ┃ Размер       ┃ Защита            ┃ Секции ┃
+┡━━━━━━━━━━━━╇━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━╇━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━╇━━━━━━━━┩
+│ __PAGEZERO │ 0x0         │ 4,294,967,296 байт │ 0        │ 0 байт       │ max=---, init=--- │ 0      │
+│ __TEXT     │ 0x100000000 │ 909,312 байт       │ 0        │ 909,312 байт │ max=R-X, init=R-X │ 17     │
+│ __DATA     │ 0x1000de000 │ 53,248 байт        │ 909312   │ 49,152 байт  │ max=RW-, init=RW- │ 22     │
+│ __LINKEDIT │ 0x1000eb000 │ 98,304 байт        │ 958464   │ 96,624 байт  │ max=R--, init=R-- │ 0      │
+└────────────┴─────────────┴────────────────────┴──────────┴──────────────┴───────────────────┴────────┘
+
+Секции:
+                                   Секции в __TEXT                                    
+┏━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━┳━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+┃ Имя              ┃ Адрес       ┃ Размер  ┃ Флаги                                   ┃
+┡━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━╇━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┩
+│ __text           │ 0x100002240 │ 781,561 │ PURE_INSTRUCTIONS, SOME_INSTRUCTIONS    │
+│ __stubs          │ 0x1000c0f3a │ 2,160   │ PURE_INSTRUCTIONS, SOME_INSTRUCTIONS    │
+│ __stub_helper    │ 0x1000c17aa │ 3,596   │ PURE_INSTRUCTIONS, SOME_INSTRUCTIONS    │
+│ __const          │ 0x1000c25c0 │ 89,439  │ -                                       │
+│ __constg_swiftt  │ 0x1000d8320 │ 3,060   │ -                                       │
+│ __swift5_typeref │ 0x1000d8f14 │ 1,161   │ -                                       │
+│ __objc_methname  │ 0x1000d939d │ 6,591   │ -                                       │
+│ __cstring        │ 0x1000dad60 │ 7,485   │ -                                       │
+│ __swift5_proto   │ 0x1000dcaa0 │ 252     │ -                                       │
+│ __swift5_types   │ 0x1000dcb9c │ 148     │ -                                       │
+│ __swift5_protos  │ 0x1000dcc30 │ 52      │ -                                       │
+│ __swift5_entry   │ 0x1000dcc64 │ 8       │ NO_DEAD_STRIP                           │
+│ __gcc_except_tab │ 0x1000dcc6c │ 256     │ -                                       │
+│ __objc_classname │ 0x1000dcd6c │ 9       │ -                                       │
+│ __objc_methtype  │ 0x1000dcd75 │ 31      │ -                                       │
+│ __unwind_info    │ 0x1000dcd94 │ 3,016   │ -                                       │
+│ __eh_frame       │ 0x1000dd960 │ 1,672   │ NO_TOC, STRIP_STATIC_SYMS, LIVE_SUPPORT │
+└──────────────────┴─────────────┴─────────┴─────────────────────────────────────────┘
+
+                      Секции в __DATA                      
+┏━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━┳━━━━━━━━┳━━━━━━━━━━━━━━━┓
+┃ Имя              ┃ Адрес       ┃ Размер ┃ Флаги         ┃
+┡━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━╇━━━━━━━━╇━━━━━━━━━━━━━━━┩
+│ __got            │ 0x1000de000 │ 1,696  │ -             │
+│ __mod_init_func  │ 0x1000de6a0 │ 8      │ -             │
+│ __la_symbol_ptr  │ 0x1000de6a8 │ 2,864  │ -             │
+│ __const          │ 0x1000df1d8 │ 20,160 │ -             │
+│ __objc_classlist │ 0x1000e4098 │ 152    │ NO_DEAD_STRIP │
+│ __objc_protolist │ 0x1000e4130 │ 24     │ -             │
+│ __objc_imageinfo │ 0x1000e4148 │ 8      │ -             │
+│ __objc_const     │ 0x1000e4150 │ 6,672  │ -             │
+│ __objc_selrefs   │ 0x1000e5b60 │ 816    │ NO_DEAD_STRIP │
+│ __objc_protorefs │ 0x1000e5e90 │ 24     │ NO_DEAD_STRIP │
+│ __objc_classrefs │ 0x1000e5ea8 │ 168    │ NO_DEAD_STRIP │
+│ __objc_data      │ 0x1000e5f50 │ 7,080  │ -             │
+│ __data           │ 0x1000e7af8 │ 7,053  │ -             │
+│ __swift_hooks    │ 0x1000e9688 │ 184    │ -             │
+│ __swift51_hooks  │ 0x1000e9740 │ 184    │ -             │
+│ __s_async_hook   │ 0x1000e97f8 │ 400    │ -             │
+│ __swift56_hooks  │ 0x1000e9988 │ 176    │ -             │
+│ __thread_vars    │ 0x1000e9a38 │ 216    │ -             │
+│ __thread_data    │ 0x1000e9b10 │ 32     │ -             │
+│ __thread_bss     │ 0x1000e9b30 │ 96     │ -             │
+│ __bss            │ 0x1000e9b90 │ 4,920  │ -             │
+│ __common         │ 0x1000eaec8 │ 120    │ -             │
+└──────────────────┴─────────────┴────────┴───────────────┘
+
+Выполняется команда: codesign -dvv /Users/oleg/Downloads/169ea42211969e2021784c9af170bdfe4b1fb29ae3e2c96f1bc87563f42bd9dc.macho
+
+Анализ безопасности
+                                                             CRITICAL                                                             
+┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+┃ Описание                       ┃ Детали                                             ┃ Рекомендации                             ┃
+┡━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┩
+│ Недействительная подпись кода  │ Executable=/Users/oleg/Downloads/169ea42211969e202 │ Проверьте целостность подписи и          │
+│                                │ 1784c9af170bdfe4b1fb29ae3e2c96f1bc87563f42bd9dc.ma │ сертификаты                              │
+│                                │ cho                                                │                                          │
+│                                │ Identifier=desktop.parallels.installer.19          │                                          │
+│                                │ Format=Mach-O thin (x86_64)                        │                                          │
+│                                │ CodeDirectory v=20400 size=8279 flags=0x2(adhoc)   │                                          │
+│                                │ hashes=252+3 location=embedded                     │                                          │
+│                                │ Signature=adhoc                                    │                                          │
+│                                │ Info.plist=not bound                               │                                          │
+│                                │ TeamIdentifier=not set                             │                                          │
+│                                │ Sealed Resources=none                              │                                          │
+│                                │ Internal requirements count=0 size=12              │                                          │
+│                                │                                                    │                                          │
+│ Сетевая активность             │ Обнаружена сетевая активность:                     │ Обнаружены функции для создания сетевых  │
+│                                │                                                    │ соединений: dyld_stub_binder             │
+│                                │ Сетевые функции:                                   │                                          │
+│                                │   - _$s10Foundation10URLRequestV10httpMethodSSSgvs │                                          │
+│                                │     Назначение: Chrome HTTP                        │                                          │
+│                                │   - _$s10Foundation10URLRequestV10httpMethodSSSgvs │                                          │
+│                                │     Назначение: Chrome URL                         │                                          │
+│                                │   - _$s10Foundation10URLRequestV10httpMethodSSSgvs │                                          │
+│                                │     Назначение: Chrome Request                     │                                          │
+│                                │   -                                                │                                          │
+│                                │ _$s10Foundation10URLRequestV19_bridgeToObjectiveCS │                                          │
+│                                │ o12NSURLRequestCyF                                 │                                          │
+│                                │     Назначение: Chrome URL                         │                                          │
+│                                │   -                                                │                                          │
+│                                │ _$s10Foundation10URLRequestV19_bridgeToObjectiveCS │                                          │
+│                                │ o12NSURLRequestCyF                                 │                                          │
+│                                │     Назначение: Chrome Request                     │                                          │
+│                                │   -                                                │                                          │
+│                                │ _$s10Foundation10URLRequestV3url11cachePolicy15tim │                                          │
+│                                │ eoutIntervalAcA3URLV_So017NSURLRequestCacheE0VSdtc │                                          │
+│                                │ fC                                                 │                                          │
+│                                │     Назначение: Chrome URL                         │                                          │
+│                                │   -                                                │                                          │
+│                                │ _$s10Foundation10URLRequestV3url11cachePolicy15tim │                                          │
+│                                │ eoutIntervalAcA3URLV_So017NSURLRequestCacheE0VSdtc │                                          │
+│                                │ fC                                                 │                                          │
+│                                │     Назначение: Chrome Request                     │                                          │
+│                                │   -                                                │                                          │
+│                                │ _$s10Foundation10URLRequestV3url11cachePolicy15tim │                                          │
+│                                │ eoutIntervalAcA3URLV_So017NSURLRequestCacheE0VSdtc │                                          │
+│                                │ fC                                                 │                                          │
+│                                │     Назначение: Chrome Cache                       │                                          │
+│                                │   -                                                │                                          │
+│                                │ _$s10Foundation10URLRequestV8setValue_18forHTTPHea │                                          │
+│                                │ derFieldySSSg_SStF                                 │                                          │
+│                                │     Назначение: Chrome HTTP                        │                                          │
+│                                │   -                                                │                                          │
+│                                │ _$s10Foundation10URLRequestV8setValue_18forHTTPHea │                                          │
+│                                │ derFieldySSSg_SStF                                 │                                          │
+│                                │     Назначение: Chrome URL                         │                                          │
+│                                │   -                                                │                                          │
+│                                │ _$s10Foundation10URLRequestV8setValue_18forHTTPHea │                                          │
+│                                │ derFieldySSSg_SStF                                 │                                          │
+│                                │     Назначение: Chrome Request                     │                                          │
+│                                │   -                                                │                                          │
+│                                │ _$s10Foundation10URLRequestV8setValue_18forHTTPHea │                                          │
+│                                │ derFieldySSSg_SStF                                 │                                          │
+│                                │     Назначение: V8 сетевые операции                │                                          │
+│                                │   - _$s10Foundation10URLRequestVMa                 │                                          │
+│                                │     Назначение: Chrome URL                         │                                          │
+│                                │   - _$s10Foundation10URLRequestVMa                 │                                          │
+│                                │     Назначение: Chrome Request                     │                                          │
+│                                │   -                                                │                                          │
+│                                │ _$s10Foundation21_BridgedStoredNSErrorPAAE4code4Co │                                          │
+│                                │ deQzvg                                             │                                          │
+│                                │     Назначение: Chrome DNS                         │                                          │
+│                                │   - _$s10Foundation3URLV06isFileB0Sbvg             │                                          │
+│                                │     Назначение: Chrome URL                         │                                          │
+│                                │   -                                                │                                          │
+│                                │ _$s10Foundation3URLV13DirectoryHintO03notC0yA2EmFW │                                          │
+│                                │ C                                                  │                                          │
+│                                │     Назначение: Chrome URL                         │                                          │
+│                                │   - _$s10Foundation3URLV13DirectoryHintOMa         │                                          │
+│                                │     Назначение: Chrome URL                         │                                          │
+│                                │   - _$s10Foundation3URLV13pathExtensionSSvg        │                                          │
+│                                │     Назначение: Chrome URL                         │                                          │
+│                                │   - _$s10Foundation3URLV17lastPathComponentSSvg    │                                          │
+│                                │     Назначение: Chrome URL                         │                                          │
+│                                │   -                                                │                                          │
+│                                │ _$s10Foundation3URLV19_bridgeToObjectiveCSo5NSURLC │                                          │
+│                                │ yF                                                 │                                          │
+│                                │     Назначение: Chrome URL                         │                                          │
+│                                │   -                                                │                                          │
+│                                │ _$s10Foundation3URLV21deletingPathExtensionACyF    │                                          │
+│                                │     Назначение: Chrome URL                         │                                          │
+│                                │   -                                                │                                          │
+│                                │ _$s10Foundation3URLV22appendingPathComponent_11isD │                                          │
+│                                │ irectoryACSS_SbtF                                  │                                          │
+│                                │     Назначение: Chrome URL                         │                                          │
+│                                │   -                                                │                                          │
+│                                │ _$s10Foundation3URLV22appendingPathExtensionyACSSF │                                          │
+│                                │     Назначение: Chrome URL                         │                                          │
+│                                │   -                                                │                                          │
+│                                │ _$s10Foundation3URLV36_unconditionallyBridgeFromOb │                                          │
+│                                │ jectiveCyACSo5NSURLCSgFZ                           │                                          │
+│                                │     Назначение: Chrome URL                         │                                          │
+│                                │   - _$s10Foundation3URLV4pathSSvg                  │                                          │
+│                                │     Назначение: Chrome URL                         │                                          │
+│                                │   - _$s10Foundation3URLV6stringACSgSSh_tcfC        │                                          │
+│                                │     Назначение: Chrome URL                         │                                          │
+│                                │   -                                                │                                          │
+│                                │ _$s10Foundation3URLV9appending4path13directoryHint │                                          │
+│                                │ ACx_AC09DirectoryF0OtSyRzlF                        │                                          │
+│                                │     Назначение: Chrome URL                         │                                          │
+│                                │   - _$s10Foundation3URLVMa                         │                                          │
+│                                │     Назначение: Chrome URL                         │                                          │
+│                                │   - _$s10Foundation3URLVMn                         │                                          │
+│                                │     Назначение: Chrome URL                         │                                          │
+│                                │   -                                                │                                          │
+│                                │ _$s10Foundation3URLVs23CustomStringConvertibleAAMc │                                          │
+│                                │     Назначение: Chrome URL                         │                                          │
+│                                │   - _$s10Foundation8URLErrorV4CodeV9cancelledAEvgZ │                                          │
+│                                │     Назначение: Chrome URL                         │                                          │
+│                                │   - _$s10Foundation8URLErrorV4CodeVMa              │                                          │
+│                                │     Назначение: Chrome URL                         │                                          │
+│                                │   - _$s10Foundation8URLErrorV4CodeVSYAAMc          │                                          │
+│                                │     Назначение: Chrome URL                         │                                          │
+│                                │   -                                                │                                          │
+│                                │ _$s10Foundation8URLErrorVAA21_BridgedStoredNSError │                                          │
+│                                │ AAMc                                               │                                          │
+│                                │     Назначение: Chrome URL                         │                                          │
+│                                │   -                                                │                                          │
+│                                │ _$s10Foundation8URLErrorVAA21_BridgedStoredNSError │                                          │
+│                                │ AAMc                                               │                                          │
+│                                │     Назначение: Chrome DNS                         │                                          │
+│                                │   - _$s10Foundation8URLErrorVMa                    │                                          │
+│                                │     Назначение: Chrome URL                         │                                          │
+│                                │   - _$s10Foundation8URLErrorVMn                    │                                          │
+│                                │     Назначение: Chrome URL                         │                                          │
+│                                │   - _$s10Foundation8URLErrorVs5ErrorAAMc           │                                          │
+│                                │     Назначение: Chrome URL                         │                                          │
+│                                │   - _$s7IndicesSlTl                                │                                          │
+│                                │     Назначение: Chrome SSL                         │                                          │
+│                                │   - _$sSK7IndicesSl_SKTn                           │                                          │
+│                                │     Назначение: Chrome SSL                         │                                          │
+│                                │   - _$sSSs25LosslessStringConvertiblesWP           │                                          │
+│                                │     Назначение: Chrome SSL                         │                                          │
+│                                │   -                                                │                                          │
+│                                │ _$sSSySSxcs25LosslessStringConvertibleRzSTRzSJ7Ele │                                          │
+│                                │ mentSTRtzlufC                                      │                                          │
+│                                │     Назначение: Chrome SSL                         │                                          │
+│                                │   - _$sSk7IndicesSl_SkTn                           │                                          │
+│                                │     Назначение: Chrome SSL                         │                                          │
+│                                │   - _$sSl10startIndex0B0QzvgTq                     │                                          │
+│                                │     Назначение: Chrome SSL                         │                                          │
+│                                │   - _$sSl11SubSequenceSl_SlTn                      │                                          │
+│                                │     Назначение: Chrome SSL                         │                                          │
+│                                │   -                                                │                                          │
+│                                │ _$sSl20_failEarlyRangeCheck_6boundsy5IndexQz_SNyAD │                                          │
+│                                │ GtFTq                                              │                                          │
+│                                │     Назначение: Chrome SSL                         │                                          │
+│                                │   -                                                │                                          │
+│                                │ _$sSl20_failEarlyRangeCheck_6boundsy5IndexQz_SnyAD │                                          │
+│                                │ GtFTq                                              │                                          │
+│                                │     Назначение: Chrome SSL                         │                                          │
+│                                │   -                                                │                                          │
+│                                │ _$sSl20_failEarlyRangeCheck_6boundsySny5IndexQzG_A │                                          │
+│                                │ EtFTq                                              │                                          │
+│                                │     Назначение: Chrome SSL                         │                                          │
+│                                │   -                                                │                                          │
+│                                │ _$sSl30_customIndexOfEquatableElementy0B0QzSgSg0E0 │                                          │
+│                                │ QzFTq                                              │                                          │
+│                                │     Назначение: Chrome SSL                         │                                          │
+│                                │   -                                                │                                          │
+│                                │ _$sSl34_customLastIndexOfEquatableElementy0C0QzSgS │                                          │
+│                                │ g0F0QzFTq                                          │                                          │
+│                                │     Назначение: Chrome SSL                         │                                          │
+│                                │   - _$sSl5IndexSl_SLTn                             │                                          │
+│                                │     Назначение: Chrome SSL                         │                                          │
+│                                │   - _$sSl5countSivgTq                              │                                          │
+│                                │     Назначение: Chrome SSL                         │                                          │
+│                                │   - _$sSl5index5after5IndexQzAD_tFTq               │                                          │
+│                                │     Назначение: Chrome SSL                         │                                          │
+│                                │   -                                                │                                          │
+│                                │ _$sSl5index_8offsetBy07limitedC05IndexQzSgAE_SiAEt │                                          │
+│                                │ FTq                                                │                                          │
+│                                │     Назначение: Chrome SSL                         │                                          │
+│                                │   - _$sSl5index_8offsetBy5IndexQzAD_SitFTq         │                                          │
+│                                │     Назначение: Chrome SSL                         │                                          │
+│                                │   - _$sSl7IndicesSl_SlTn                           │                                          │
+│                                │     Назначение: Chrome SSL                         │                                          │
+│                                │   - _$sSl7indices7IndicesQzvgTq                    │                                          │
+│                                │     Назначение: Chrome SSL                         │                                          │
+│                                │   - _$sSl7isEmptySbvgTq                            │                                          │
+│                                │     Назначение: Chrome SSL                         │                                          │
+│                                │   - _$sSl8distance4from2toSi5IndexQz_AEtFTq        │                                          │
+│                                │     Назначение: Chrome SSL                         │                                          │
+│                                │   - _$sSl8endIndex0B0QzvgTq                        │                                          │
+│                                │     Назначение: Chrome SSL                         │                                          │
+│                                │   - _$sSl9formIndex5aftery0B0Qzz_tFTq              │                                          │
+│                                │     Назначение: Chrome SSL                         │                                          │
+│                                │   - _$sSlMp                                        │                                          │
+│                                │     Назначение: Chrome SSL                         │                                          │
+│                                │   - _$sSlSTTb                                      │                                          │
+│                                │     Назначение: Chrome SSL                         │                                          │
+│                                │   - _$sSlsE19underestimatedCountSivg               │                                          │
+│                                │     Назначение: Chrome SSL                         │                                          │
+│                                │   -                                                │                                          │
+│                                │ _$sSlsE20_failEarlyRangeCheck_6boundsy5IndexQz_SNy │                                          │
+│                                │ ADGtF                                              │                                          │
+│                                │     Назначение: Chrome SSL                         │                                          │
+│                                │   -                                                │                                          │
+│                                │ _$sSlsE20_failEarlyRangeCheck_6boundsy5IndexQz_Sny │                                          │
+│                                │ ADGtF                                              │                                          │
+│                                │     Назначение: Chrome SSL                         │                                          │
+│                                │   -                                                │                                          │
+│                                │ _$sSlsE20_failEarlyRangeCheck_6boundsySny5IndexQzG │                                          │
+│                                │ _AEtF                                              │                                          │
+│                                │     Назначение: Chrome SSL                         │                                          │
+│                                │   -                                                │                                          │
+│                                │ _$sSlsE22_copyToContiguousArrays0cD0Vy7ElementQzGy │                                          │
+│                                │ F                                                  │                                          │
+│                                │     Назначение: Chrome SSL                         │                                          │
+│                                │   - _$sSlsE5countSivg                              │                                          │
+│                                │     Назначение: Chrome SSL                         │                                          │
+│                                │   - _$sSlsE7isEmptySbvg                            │                                          │
+│                                │     Назначение: Chrome SSL                         │                                          │
+│                                │   -                                                │                                          │
+│                                │ _$sSlss5SliceVyxG11SubSequenceRtzrlEyACSny5IndexQz │                                          │
+│                                │ Gcig                                               │                                          │
+│                                │     Назначение: Chrome SSL                         │                                          │
+│                                │   - _$sSly11SubSequenceQzSny5IndexQzGcigTq         │                                          │
+│                                │     Назначение: Chrome SSL                         │                                          │
+│                                │   - _$sSly7ElementQz5IndexQzcirTq                  │                                          │
+│                                │     Назначение: Chrome SSL                         │                                          │
+│                                │   - _$ss18_CocoaArrayWrapperV8endIndexSivg         │                                          │
+│                                │     Назначение: V8 сетевые операции                │                                          │
+│                                │   - _$ss5ErrorP19_getEmbeddedNSErroryXlSgyFTq      │                                          │
+│                                │     Назначение: Chrome DNS                         │                                          │
+│                                │   - _$ss5ErrorP7_domainSSvgTq                      │                                          │
+│                                │     Назначение: Работа с доменами                  │                                          │
+│                                │   - _$ss5ErrorPsE19_getEmbeddedNSErroryXlSgyF      │                                          │
+│                                │     Назначение: Chrome DNS                         │                                          │
+│                                │   - _$ss5ErrorPsE7_domainSSvg                      │                                          │
+│                                │     Назначение: Работа с доменами                  │                                          │
+│                                │   - _$ss6HasherV8_combineyySuF                     │                                          │
+│                                │     Назначение: V8 сетевые операции                │                                          │
+│                                │   - _NSPasteboardTypeFileURL                       │                                          │
+│                                │     Назначение: Chrome URL                         │                                          │
+│                                │   - _NSPasteboardURLReadingFileURLsOnlyKey         │                                          │
+│                                │     Назначение: Chrome URL                         │                                          │
+│                                │   - _NSURLSessionTransferSizeUnknown               │                                          │
+│                                │     Назначение: Chrome URL                         │                                          │
+│                                │   - _OBJC_CLASS_$_NSHTTPURLResponse                │                                          │
+│                                │     Назначение: Chrome HTTP                        │                                          │
+│                                │   - _OBJC_CLASS_$_NSHTTPURLResponse                │                                          │
+│                                │     Назначение: Chrome URL                         │                                          │
+│                                │   - _OBJC_CLASS_$_NSHTTPURLResponse                │                                          │
+│                                │     Назначение: Chrome Response                    │                                          │
+│                                │   - _OBJC_CLASS_$_NSURL                            │                                          │
+│                                │     Назначение: Chrome URL                         │                                          │
+│                                │   - _OBJC_CLASS_$_NSURLSession                     │                                          │
+│                                │     Назначение: Chrome URL                         │                                          │
+│                                │   - _OBJC_CLASS_$_NSURLSessionConfiguration        │                                          │
+│                                │     Назначение: Chrome URL                         │                                          │
+│                                │   - _OBJC_CLASS_$_NSURLSessionTask                 │                                          │
+│                                │     Назначение: Chrome URL                         │                                          │
+│                                │   - __objc_empty_cache                             │                                          │
+│                                │     Назначение: Chrome Cache                       │                                          │
+│                                │   - _objc_msgSend                                  │                                          │
+│                                │     Назначение: Отправка данных по сети            │                                          │
+│                                │   - _objc_msgSendSuper2                            │                                          │
+│                                │     Назначение: Отправка данных по сети            │                                          │
+│                                │   - dyld_stub_binder                               │                                          │
+│                                │     Назначение: Привязка к сетевому порту          │                                          │
+└────────────────────────────────┴────────────────────────────────────────────────────┴──────────────────────────────────────────┘
+
+                                                             WARNING                                                              
+┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+┃ Описание                       ┃ Детали                                             ┃ Рекомендации                             ┃
+┡━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┩
+│ Отсутствует RELRO              │ Отсутствует защита GOT от перезаписи               │ Рекомендуется включить защиту RELRO при  │
+│                                │                                                    │ компиляции                               │
+│ Динамические библиотеки        │ Статистика библиотек:                              │ Использование приватных библиотек может  │
+│                                │   Всего: 25                                        │ быть небезопасным                        │
+│                                │   Системных: 13                                    │ Слабые библиотеки могут быть             │
+│                                │   Приватных: 12                                    │ переопределены                           │
+│                                │   Слабых: 13                                       │                                          │
+│                                │   Реэкспортируемых: 0                              │                                          │
+│                                │                                                    │                                          │
+│                                │ Подозрительные библиотеки:                         │                                          │
+│                                │   - /usr/lib/libcompression.dylib                  │                                          │
+│                                │     Причина: Сжатие данных                         │                                          │
+│                                │                                                    │                                          │
+│                                │ Подробная информация о библиотеках:                │                                          │
+│                                │   - /usr/lib/libcompression.dylib                  │                                          │
+│                                │     Тип: System                                    │                                          │
+│                                │     Характеристики: (system)                       │                                          │
+│                                │   -                                                │                                          │
+│                                │ /System/Library/Frameworks/Foundation.framework/Ve │                                          │
+│                                │ rsions/C/Foundation                                │                                          │
+│                                │     Тип: Framework                                 │                                          │
+│                                │     Характеристики: (system)                       │                                          │
+│                                │   - /usr/lib/libobjc.A.dylib                       │                                          │
+│                                │     Тип: System                                    │                                          │
+│                                │     Характеристики: (system)                       │                                          │
+│                                │   - /usr/lib/libSystem.B.dylib                     │                                          │
+│                                │     Тип: System                                    │                                          │
+│                                │     Характеристики: (system)                       │                                          │
+│                                │   -                                                │                                          │
+│                                │ /System/Library/Frameworks/AppKit.framework/Versio │                                          │
+│                                │ ns/C/AppKit                                        │                                          │
+│                                │     Тип: Framework                                 │                                          │
+│                                │     Характеристики: (system)                       │                                          │
+│                                │   -                                                │                                          │
+│                                │ /System/Library/Frameworks/CoreFoundation.framewor │                                          │
+│                                │ k/Versions/A/CoreFoundation                        │                                          │
+│                                │     Тип: Framework                                 │                                          │
+│                                │     Характеристики: (system)                       │                                          │
+│                                │   -                                                │                                          │
+│                                │ /System/Library/Frameworks/Security.framework/Vers │                                          │
+│                                │ ions/A/Security                                    │                                          │
+│                                │     Тип: Framework                                 │                                          │
+│                                │     Характеристики: (system)                       │                                          │
+│                                │   - /usr/lib/libc++.1.dylib                        │                                          │
+│                                │     Тип: System                                    │                                          │
+│                                │     Характеристики: (system)                       │                                          │
+│                                │   - /usr/lib/swift/libswiftCore.dylib              │                                          │
+│                                │     Тип: Swift                                     │                                          │
+│                                │     Характеристики: (system)                       │                                          │
+│                                │   - /usr/lib/swift/libswiftDarwin.dylib            │                                          │
+│                                │     Тип: Swift                                     │                                          │
+│                                │     Характеристики: (weak, system)                 │                                          │
+│                                │   - /usr/lib/swift/libswiftOSLog.dylib             │                                          │
+│                                │     Тип: Swift                                     │                                          │
+│                                │     Характеристики: (weak, system)                 │                                          │
+│                                │   - /usr/lib/swift/libswiftSpatial.dylib           │                                          │
+│                                │     Тип: Swift                                     │                                          │
+│                                │     Характеристики: (weak, system)                 │                                          │
+│                                │   -                                                │                                          │
+│                                │ /usr/lib/swift/libswiftUniformTypeIdentifiers.dyli │                                          │
+│                                │ b                                                  │                                          │
+│                                │     Тип: Swift                                     │                                          │
+│                                │     Характеристики: (weak, system)                 │                                          │
+│                                │   - @rpath/libswiftCoreFoundation.dylib            │                                          │
+│                                │     Тип: Runtime                                   │                                          │
+│                                │     Характеристики: (weak, private)                │                                          │
+│                                │     Путь: @rpath/libswiftCoreFoundation.dylib      │                                          │
+│                                │   - @rpath/libswiftCoreImage.dylib                 │                                          │
+│                                │     Тип: Runtime                                   │                                          │
+│                                │     Характеристики: (weak, private)                │                                          │
+│                                │     Путь: @rpath/libswiftCoreImage.dylib           │                                          │
+│                                │   - @rpath/libswiftDispatch.dylib                  │                                          │
+│                                │     Тип: Runtime                                   │                                          │
+│                                │     Характеристики: (private)                      │                                          │
+│                                │     Путь: @rpath/libswiftDispatch.dylib            │                                          │
+│                                │   - @rpath/libswiftIOKit.dylib                     │                                          │
+│                                │     Тип: Runtime                                   │                                          │
+│                                │     Характеристики: (weak, private)                │                                          │
+│                                │     Путь: @rpath/libswiftIOKit.dylib               │                                          │
+│                                │   - @rpath/libswiftMetal.dylib                     │                                          │
+│                                │     Тип: Runtime                                   │                                          │
+│                                │     Характеристики: (weak, private)                │                                          │
+│                                │     Путь: @rpath/libswiftMetal.dylib               │                                          │
+│                                │   - @rpath/libswiftObjectiveC.dylib                │                                          │
+│                                │     Тип: Runtime                                   │                                          │
+│                                │     Характеристики: (weak, private)                │                                          │
+│                                │     Путь: @rpath/libswiftObjectiveC.dylib          │                                          │
+│                                │   - @rpath/libswiftQuartzCore.dylib                │                                          │
+│                                │     Тип: Runtime                                   │                                          │
+│                                │     Характеристики: (weak, private)                │                                          │
+│                                │     Путь: @rpath/libswiftQuartzCore.dylib          │                                          │
+│                                │   - @rpath/libswiftXPC.dylib                       │                                          │
+│                                │     Тип: Runtime                                   │                                          │
+│                                │     Характеристики: (weak, private)                │                                          │
+│                                │     Путь: @rpath/libswiftXPC.dylib                 │                                          │
+│                                │   - @rpath/libswiftos.dylib                        │                                          │
+│                                │     Тип: Runtime                                   │                                          │
+│                                │     Характеристики: (weak, private)                │                                          │
+│                                │     Путь: @rpath/libswiftos.dylib                  │                                          │
+│                                │   - @rpath/libswiftsimd.dylib                      │                                          │
+│                                │     Тип: Runtime                                   │                                          │
+│                                │     Характеристики: (weak, private)                │                                          │
+│                                │     Путь: @rpath/libswiftsimd.dylib                │                                          │
+│                                │   - @rpath/libswiftFoundation.dylib                │                                          │
+│                                │     Тип: Runtime                                   │                                          │
+│                                │     Характеристики: (private)                      │                                          │
+│                                │     Путь: @rpath/libswiftFoundation.dylib          │                                          │
+│                                │   - @rpath/libswiftAppKit.dylib                    │                                          │
+│                                │     Тип: Runtime                                   │                                          │
+│                                │     Характеристики: (private)                      │                                          │
+│                                │     Путь: @rpath/libswiftAppKit.dylib              │                                          │
+│ Использование небезопасной     │ Обнаружено использование функции gets              │ Рекомендуется использовать безопасную    │
+│ функции gets()                 │                                                    │ альтернативу gets (например, gets_s,     │
+│                                │                                                    │ strcpy_s)                                │
+│ Обнаружена антиотладочная      │ Найдена функция fork, которая может использоваться │ Нет рекомендаций                         │
+│ функция: fork                  │ для обнаружения отладчика                          │                                          │
+│ Обнаружена антиотладочная      │ Найдена функция ioctl, которая может               │ Нет рекомендаций                         │
+│ функция: ioctl                 │ использоваться для обнаружения отладчика           │                                          │
+│ Обнаружены строки, связанные с │ Найдена строка xcode в секции __text               │ Нет рекомендаций                         │
+│ отладкой                       │                                                    │                                          │
+│ Обнаружены строки, связанные с │ Найдена строка debug в секции __objc_methname      │ Нет рекомендаций                         │
+│ отладкой                       │                                                    │                                          │
+│ Обнаружены строки, связанные с │ Найдена строка debug в секции __cstring            │ Нет рекомендаций                         │
+│ отладкой                       │                                                    │                                          │
+│ Обнаружена функция измерения   │ Найдена функция clock_gettime, которая может       │ Нет рекомендаций                         │
+│ времени: clock_gettime         │ использоваться для обнаружения замедления при      │                                          │
+│                                │ отладке                                            │                                          │
+│ Обнаружена функция измерения   │ Найдена функция time, которая может использоваться │ Нет рекомендаций                         │
+│ времени: time                  │ для обнаружения замедления при отладке             │                                          │
+│ Отсутствует Safe Stack         │ Отсутствует защита Safe Stack                      │ Рекомендуется включить                   │
+│                                │                                                    │ -fsanitize=safe-stack при компиляции     │
+│                                │                                                    │ (только для x86_64)                      │
+└────────────────────────────────┴────────────────────────────────────────────────────┴──────────────────────────────────────────┘
+
+                                                               INFO                                                               
+┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+┃ Описание                       ┃ Детали                                             ┃ Рекомендации                             ┃
+┡━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┩
+│ Защита стека от выполнения     │ Стек не является исполняемым                       │ Нет рекомендаций                         │
+│ ASLR (Address Space Layout     │ Включена рандомизация адресного пространства       │ Нет рекомендаций                         │
+│ Randomization)                 │                                                    │                                          │
+│ Защита сегмента __DATA         │ Сегмент __DATA защищен от выполнения кода          │ Нет рекомендаций                         │
+│ Частичный FORTIFY_SOURCE       │ Обнаружена базовая защита от переполнения буфера   │ Рекомендуется включить полный            │
+│                                │                                                    │ FORTIFY_SOURCE=2 при компиляции          │
+│ Stack Canary                   │ Включена защита стека от переполнения (stack       │ Нет рекомендаций                         │
+│                                │ canary)                                            │                                          │
+│ Обнаружена канарейка           │ Найдена канарейка типа 0000000000000000 в секции   │ Нет рекомендаций                         │
+│                                │ __bss                                              │                                          │
+│ Обнаружена функция защиты      │ Найдена функция __stack_chk_fail                   │ Нет рекомендаций                         │
+│ канареек                       │                                                    │                                          │
+│ Обнаружена функция защиты      │ Найдена функция __stack_chk_guard                  │ Нет рекомендаций                         │
+│ канареек                       │                                                    │                                          │
+└────────────────────────────────┴────────────────────────────────────────────────────┴──────────────────────────────────────────┘
+
+
+Анализ символов и библиотек:
+  Статистика символов   
+┏━━━━━━━━━┳━━━━━━━━━━━━┓
+┃ Тип     ┃ Количество ┃
+┡━━━━━━━━━╇━━━━━━━━━━━━┩
+│ Global  │ 586        │
+│ Unknown │ 1          │
+└─────────┴────────────┘
+
+                                                        Динамические библиотеки                                                        
+┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+┃ Библиотека                                                                    ┃ Тип           ┃ Путь                                ┃
+┡━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┩
+│ /usr/lib/libcompression.dylib                                                 │ System        │ Не найден                           │
+│ /System/Library/Frameworks/Foundation.framework/Versions/C/Foundation         │ System        │ Не найден                           │
+│ /usr/lib/libobjc.A.dylib                                                      │ System        │ Не найден                           │
+│ /usr/lib/libSystem.B.dylib                                                    │ System        │ Не найден                           │
+│ /System/Library/Frameworks/AppKit.framework/Versions/C/AppKit                 │ System        │ Не найден                           │
+│ /System/Library/Frameworks/CoreFoundation.framework/Versions/A/CoreFoundation │ System        │ Не найден                           │
+│ /System/Library/Frameworks/Security.framework/Versions/A/Security             │ System        │ Не найден                           │
+│ /usr/lib/libc++.1.dylib                                                       │ System        │ Не найден                           │
+│ /usr/lib/swift/libswiftCore.dylib                                             │ System        │ Не найден                           │
+│ /usr/lib/swift/libswiftDarwin.dylib                                           │ System, Weak  │ Не найден                           │
+│ /usr/lib/swift/libswiftOSLog.dylib                                            │ System, Weak  │ Не найден                           │
+│ /usr/lib/swift/libswiftSpatial.dylib                                          │ System, Weak  │ Не найден                           │
+│ /usr/lib/swift/libswiftUniformTypeIdentifiers.dylib                           │ System, Weak  │ Не найден                           │
+│ @rpath/libswiftCoreFoundation.dylib                                           │ Private, Weak │ @rpath/libswiftCoreFoundation.dylib │
+│ @rpath/libswiftCoreImage.dylib                                                │ Private, Weak │ @rpath/libswiftCoreImage.dylib      │
+│ @rpath/libswiftDispatch.dylib                                                 │ Private       │ @rpath/libswiftDispatch.dylib       │
+│ @rpath/libswiftIOKit.dylib                                                    │ Private, Weak │ @rpath/libswiftIOKit.dylib          │
+│ @rpath/libswiftMetal.dylib                                                    │ Private, Weak │ @rpath/libswiftMetal.dylib          │
+│ @rpath/libswiftObjectiveC.dylib                                               │ Private, Weak │ @rpath/libswiftObjectiveC.dylib     │
+│ @rpath/libswiftQuartzCore.dylib                                               │ Private, Weak │ @rpath/libswiftQuartzCore.dylib     │
+│ @rpath/libswiftXPC.dylib                                                      │ Private, Weak │ @rpath/libswiftXPC.dylib            │
+│ @rpath/libswiftos.dylib                                                       │ Private, Weak │ @rpath/libswiftos.dylib             │
+│ @rpath/libswiftsimd.dylib                                                     │ Private, Weak │ @rpath/libswiftsimd.dylib           │
+│ @rpath/libswiftFoundation.dylib                                               │ Private       │ @rpath/libswiftFoundation.dylib     │
+│ @rpath/libswiftAppKit.dylib                                                   │ Private       │ @rpath/libswiftAppKit.dylib         │
+└───────────────────────────────────────────────────────────────────────────────┴───────────────┴─────────────────────────────────────┘
+
+                                                         Экспортируемые символы                                                          
+┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━┳━━━━━━━━┳━━━━━━━┓
+┃ Символ                                                                                                 ┃ Адрес       ┃ Секция ┃ Флаги ┃
+┡━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━╇━━━━━━━━╇━━━━━━━┩
+│ __mh_execute_header                                                                                    │ 0x100000000 │ -      │ -     │
+│ _$s10Foundation10URLRequestV10httpMethodSSSgvs                                                         │ -           │ -      │ -     │
+│ _$s10Foundation10URLRequestV19_bridgeToObjectiveCSo12NSURLRequestCyF                                   │ -           │ -      │ -     │
+│ _$s10Foundation10URLRequestV3url11cachePolicy15timeoutIntervalAcA3URLV_So017NSURLRequestCacheE0VSdtcfC │ -           │ -      │ -     │
+│ _$s10Foundation10URLRequestV8setValue_18forHTTPHeaderFieldySSSg_SStF                                   │ -           │ -      │ -     │
+│ _$s10Foundation10URLRequestVMa                                                                         │ -           │ -      │ -     │
+│ _$s10Foundation12CharacterSetV13decimalDigitsACvgZ                                                     │ -           │ -      │ -     │
+│ _$s10Foundation12CharacterSetV19_bridgeToObjectiveCSo011NSCharacterC0CyF                               │ -           │ -      │ -     │
+│ _$s10Foundation12CharacterSetVMa                                                                       │ -           │ -      │ -     │
+│ _$s10Foundation12NotificationV36_unconditionallyBridgeFromObjectiveCyACSo14NSNotificationCSgFZ         │ -           │ -      │ -     │
+└────────────────────────────────────────────────────────────────────────────────────────────────────────┴─────────────┴────────┴───────┘
+... и еще 576 символов
+
+
+Встроенные данные:
+
+Sensitive_url (4):
+  Секция: __const
+  Смещение: 0xc515a
+  Размер: 16 байт
+  Содержимое: http://forteingy
+
+  Секция: __const
+  Смещение: 0xcdbe0
+  Размер: 48 байт
+  Содержимое: http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+
+  Секция: __const
+  Смещение: 0xc50f0
+  Размер: 16 байт
+  Содержимое: http://forteingy
+
+  Секция: __const
+  Смещение: 0xcd723
+  Размер: 48 байт
+  Содержимое: http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+
+
+Sensitive_file_path (36):
+  Секция: __const
+  Смещение: 0xcdbe6
+  Размер: 40 байт
+  Содержимое: /www.apple.com/DTDs/PropertyList-1.0.dtd
+
+  Секция: __const
+  Смещение: 0xcd729
+  Размер: 40 байт
+  Содержимое: /www.apple.com/DTDs/PropertyList-1.0.dtd
+
+  Секция: __bss
+  Смещение: 0xe01
+  Размер: 29 байт
+  Содержимое: /usr/lib/libcompression.dylib
+
+  Секция: __bss
+  Смещение: 0xe38
+  Размер: 47 байт
+  Содержимое: /System/Library/Frameworks/Foundation.framework
+
+  Секция: __bss
+  Смещение: 0xe97
+  Размер: 24 байт
+  Содержимое: /usr/lib/libobjc.A.dylib
+
+  Секция: __bss
+  Смещение: 0xecf
+  Размер: 26 байт
+  Содержимое: /usr/lib/libSystem.B.dylib
+
+  Секция: __bss
+  Смещение: 0xf07
+  Размер: 43 байт
+  Содержимое: /System/Library/Frameworks/AppKit.framework
+
+  Секция: __bss
+  Смещение: 0xf5d
+  Размер: 51 байт
+  Содержимое: /System/Library/Frameworks/CoreFoundation.framewor...
+
+  Секция: __bss
+  Смещение: 0xfc3
+  Размер: 45 байт
+  Содержимое: /System/Library/Frameworks/Security.framework
+
+  Секция: __bss
+  Смещение: 0x1053
+  Размер: 33 байт
+  Содержимое: /usr/lib/swift/libswiftCore.dylib
+
+  Секция: __bss
+  Смещение: 0x1091
+  Размер: 35 байт
+  Содержимое: /usr/lib/swift/libswiftDarwin.dylib
+
+  Секция: __bss
+  Смещение: 0x10d0
+  Размер: 34 байт
+  Содержимое: /usr/lib/swift/libswiftOSLog.dylib
+
+  Секция: __bss
+  Смещение: 0x110f
+  Размер: 36 байт
+  Содержимое: /usr/lib/swift/libswiftSpatial.dylib
+
+  Секция: __bss
+  Смещение: 0x114e
+  Размер: 51 байт
+  Содержимое: /usr/lib/swift/libswiftUniformTypeIdentifiers.dyli...
+
+  Секция: __bss
+  Смещение: 0x11a3
+  Размер: 29 байт
+  Содержимое: /libswiftCoreFoundation.dylib
+
+  Секция: __bss
+  Смещение: 0x11e2
+  Размер: 24 байт
+  Содержимое: /libswiftCoreImage.dylib
+
+  Секция: __bss
+  Смещение: 0x121a
+  Размер: 23 байт
+  Содержимое: /libswiftDispatch.dylib
+
+  Секция: __bss
+  Смещение: 0x1251
+  Размер: 20 байт
+  Содержимое: /libswiftIOKit.dylib
+
+  Секция: __bss
+  Смещение: 0x1288
+  Размер: 18 байт
+  Содержимое: /libswiftMetal.dyl
+
+  Секция: __bss
+  Смещение: 0xe00
+  Размер: 29 байт
+  Содержимое: /usr/lib/libcompression.dylib
+
+  Секция: __bss
+  Смещение: 0xe37
+  Размер: 47 байт
+  Содержимое: /System/Library/Frameworks/Foundation.framework
+
+  Секция: __bss
+  Смещение: 0xe96
+  Размер: 24 байт
+  Содержимое: /usr/lib/libobjc.A.dylib
+
+  Секция: __bss
+  Смещение: 0xece
+  Размер: 26 байт
+  Содержимое: /usr/lib/libSystem.B.dylib
+
+  Секция: __bss
+  Смещение: 0xf06
+  Размер: 43 байт
+  Содержимое: /System/Library/Frameworks/AppKit.framework
+
+  Секция: __bss
+  Смещение: 0xf5c
+  Размер: 51 байт
+  Содержимое: /System/Library/Frameworks/CoreFoundation.framewor...
+
+  Секция: __bss
+  Смещение: 0xfc2
+  Размер: 45 байт
+  Содержимое: /System/Library/Frameworks/Security.framework
+
+  Секция: __bss
+  Смещение: 0x1052
+  Размер: 33 байт
+  Содержимое: /usr/lib/swift/libswiftCore.dylib
+
+  Секция: __bss
+  Смещение: 0x1090
+  Размер: 35 байт
+  Содержимое: /usr/lib/swift/libswiftDarwin.dylib
+
+  Секция: __bss
+  Смещение: 0x10cf
+  Размер: 34 байт
+  Содержимое: /usr/lib/swift/libswiftOSLog.dylib
+
+  Секция: __bss
+  Смещение: 0x110e
+  Размер: 36 байт
+  Содержимое: /usr/lib/swift/libswiftSpatial.dylib
+
+  Секция: __bss
+  Смещение: 0x114d
+  Размер: 51 байт
+  Содержимое: /usr/lib/swift/libswiftUniformTypeIdentifiers.dyli...
+
+  Секция: __bss
+  Смещение: 0x11a2
+  Размер: 29 байт
+  Содержимое: /libswiftCoreFoundation.dylib
+
+  Секция: __bss
+  Смещение: 0x11e1
+  Размер: 24 байт
+  Содержимое: /libswiftCoreImage.dylib
+
+  Секция: __bss
+  Смещение: 0x1219
+  Размер: 23 байт
+  Содержимое: /libswiftDispatch.dylib
+
+  Секция: __bss
+  Смещение: 0x1250
+  Размер: 20 байт
+  Содержимое: /libswiftIOKit.dylib
+
+  Секция: __bss
+  Смещение: 0x1287
+  Размер: 18 байт
+  Содержимое: /libswiftMetal.dyl
+
+
+Crypto_RSA_E (6):
+  Секция: __const
+  Смещение: 0xc279a
+  Размер: 3 байт
+  Содержимое: 010001
+
+  Секция: __constg_swiftt
+  Смещение: 0xd89d8
+  Размер: 3 байт
+  Содержимое: 010001
+
+  Секция: __unwind_info
+  Смещение: 0xdcdb4
+  Размер: 3 байт
+  Содержимое: 010001
+
+  Секция: __const
+  Смещение: 0xdf2c2
+  Размер: 3 байт
+  Содержимое: 010001
+
+  Секция: __objc_data
+  Смещение: 0xe7452
+  Размер: 3 байт
+  Содержимое: 010001
+
+  Секция: __data
+  Смещение: 0xe8412
+  Размер: 3 байт
+  Содержимое: 010001
+
+
+Crypto_RC4_INIT (1):
+  Секция: __const
+  Смещение: 0xc441e
+  Размер: 16 байт
+  Содержимое: 000102030405060708090a0b0c0d0e0f
+
+
+ObjC_method (263):
+  Секция: __objc_methname
+  Смещение: 0x0
+  Размер: 15 байт
+  Содержимое: Bpo6kvZE0ZpsKvr
+
+  Секция: __objc_methname
+  Смещение: 0x10
+  Размер: 16 байт
+  Содержимое: IXVwDptpGNiCc6nQ
+
+  Секция: __objc_methname
+  Смещение: 0x25
+  Размер: 19 байт
+  Содержимое: 6uEzs5D2mNIRSjiUraL
+
+  Секция: __objc_methname
+  Смещение: 0x59
+  Размер: 29 байт
+  Содержимое: HTTPMaximumConnectionsPerHost
+
+  Секция: __objc_methname
+  Смещение: 0x77
+  Размер: 15 байт
+  Содержимое: WUqn1HT6GOfpsm:
+
+  Секция: __objc_methname
+  Смещение: 0x87
+  Размер: 18 байт
+  Содержимое: xdXjlEX7Hm2aGCICpu
+
+  Секция: __objc_methname
+  Смещение: 0x9a
+  Размер: 15 байт
+  Содержимое: draggingExited:
+
+  Секция: __objc_methname
+  Смещение: 0xaa
+  Размер: 13 байт
+  Содержимое: g9SaxN1waUuSc
+
+  Секция: __objc_methname
+  Смещение: 0xb8
+  Размер: 7 байт
+  Содержимое: isProxy
+
+  Секция: __objc_methname
+  Смещение: 0xc0
+  Размер: 14 байт
+  Содержимое: McB3JRCAL26zPC
+
+  Секция: __objc_methname
+  Смещение: 0xcf
+  Размер: 7 байт
+  Содержимое: release
+
+  Секция: __objc_methname
+  Смещение: 0xd7
+  Размер: 11 байт
+  Содержимое: acARWPt7G42
+
+  Секция: __objc_methname
+  Смещение: 0xe3
+  Размер: 15 байт
+  Содержимое: setbA86rgA1KRM:
+
+  Секция: __objc_methname
+  Смещение: 0xf3
+  Размер: 14 байт
+  Содержимое: Wq0C1kMm81TVDE
+
+  Секция: __objc_methname
+  Смещение: 0x102
+  Размер: 15 байт
+  Содержимое: setMessageText:
+
+  Секция: __objc_methname
+  Смещение: 0x112
+  Размер: 6 байт
+  Содержимое: XTb11e
+
+  Секция: __objc_methname
+  Смещение: 0x119
+  Размер: 15 байт
+  Содержимое: startAnimation:
+
+  Секция: __objc_methname
+  Смещение: 0x129
+  Размер: 17 байт
+  Содержимое: O4IZQm5zmvga2Vlu5
+
+  Секция: __objc_methname
+  Смещение: 0x13b
+  Размер: 15 байт
+  Содержимое: throwException:
+
+  Секция: __objc_methname
+  Смещение: 0x14b
+  Размер: 16 байт
+  Содержимое: EeZqe54VQK9PIWis
+
+  Секция: __objc_methname
+  Смещение: 0x15c
+  Размер: 31 байт
+  Содержимое: windowDidFailToEnterFullScreen:
+
+  Секция: __objc_methname
+  Смещение: 0x17c
+  Размер: 18 байт
+  Содержимое: gq8ohsmuyekIuce0M:
+
+  Секция: __objc_methname
+  Смещение: 0x18f
+  Размер: 13 байт
+  Содержимое: .cxx_destruct
+
+  Секция: __objc_methname
+  Смещение: 0x19d
+  Размер: 15 байт
+  Содержимое: LMunOJhRQ4UhBpR
+
+  Секция: __objc_methname
+  Смещение: 0x1ad
+  Размер: 22 байт
+  Содержимое: kdH5olqaBKwnXQq5Iqgt7a
+
+  Секция: __objc_methname
+  Смещение: 0x1c4
+  Размер: 15 байт
+  Содержимое: allHeaderFields
+
+  Секция: __objc_methname
+  Смещение: 0xe6
+  Размер: 11 байт
+  Содержимое: bA86rgA1KRM
+
+  Секция: __objc_methname
+  Смещение: 0x1e0
+  Размер: 31 байт
+  Содержимое: applicationWillFinishLaunching:
+
+  Секция: __objc_methname
+  Смещение: 0x200
+  Размер: 17 байт
+  Содержимое: vu0NLUg05G70NoYvI
+
+  Секция: __objc_methname
+  Смещение: 0x21a
+  Размер: 33 байт
+  Содержимое: JSONObjectWithData:options:error:
+
+  Секция: __objc_methname
+  Смещение: 0x24c
+  Размер: 13 байт
+  Содержимое: CFXRIKCsGWTgz
+
+  Секция: __objc_methname
+  Смещение: 0x25a
+  Размер: 7 байт
+  Содержимое: isValid
+
+  Секция: __objc_methname
+  Смещение: 0x262
+  Размер: 12 байт
+  Содержимое: BNXn3SZTf2MS
+
+  Секция: __objc_methname
+  Смещение: 0x26f
+  Размер: 15 байт
+  Содержимое: setDoubleValue:
+
+  Секция: __objc_methname
+  Смещение: 0x27f
+  Размер: 14 байт
+  Содержимое: ajeiVIewbc1VN3
+
+  Секция: __objc_methname
+  Смещение: 0x28e
+  Размер: 15 байт
+  Содержимое: setacARWPt7G42:
+
+  Секция: __objc_methname
+  Смещение: 0x29e
+  Размер: 10 байт
+  Содержимое: 6mUMjqKDk8
+
+  Секция: __objc_methname
+  Смещение: 0x2a9
+  Размер: 15 байт
+  Содержимое: setStringValue:
+
+  Секция: __objc_methname
+  Смещение: 0x2b9
+  Размер: 8 байт
+  Содержимое: lidoWWx6
+
+  Секция: __objc_methname
+  Смещение: 0x2c2
+  Размер: 31 байт
+  Содержимое: stringFromByteCount:countStyle:
+
+  Секция: __objc_methname
+  Смещение: 0x2e2
+  Размер: 56 байт
+  Содержимое: URLForDirectory:inDomain:appropriateForURL:create:error:
+
+  Секция: __objc_methname
+  Смещение: 0x31b
+  Размер: 15 байт
+  Содержимое: uppercaseString
+
+  Секция: __objc_methname
+  Смещение: 0x32b
+  Размер: 18 байт
+  Содержимое: acceptsFirstMouse:
+
+  Секция: __objc_methname
+  Смещение: 0x33e
+  Размер: 15 байт
+  Содержимое: windowWillMove:
+
+  Секция: __objc_methname
+  Смещение: 0x34e
+  Размер: 19 байт
+  Содержимое: addButtonWithTitle:
+
+  Секция: __objc_methname
+  Смещение: 0x362
+  Размер: 19 байт
+  Содержимое: addItemsWithTitles:
+
+  Секция: __objc_methname
+  Смещение: 0x376
+  Размер: 52 байт
+  Содержимое: application:continueUserActivity:restorationHandler:
+
+  Секция: __objc_methname
+  Смещение: 0x3ab
+  Размер: 37 байт
+  Содержимое: application:didDecodeRestorableState:
+
+  Секция: __objc_methname
+  Смещение: 0x3d1
+  Размер: 56 байт
+  Содержимое: application:didFailToContinueUserActivityWithType:error:
+
+  Секция: __objc_methname
+  Смещение: 0x40a
+  Размер: 61 байт
+  Содержимое: application:didFailToRegisterForRemoteNotificationsWithError:
+
+  Секция: __objc_methname
+  Смещение: 0x448
+  Размер: 41 байт
+  Содержимое: application:didReceiveRemoteNotification:
+
+  Секция: __objc_methname
+  Смещение: 0x4b0
+  Размер: 34 байт
+  Содержимое: application:didUpdateUserActivity:
+
+  Секция: __objc_methname
+  Смещение: 0x4d3
+  Размер: 21 байт
+  Содержимое: application:openFile:
+
+  Секция: __objc_methname
+  Смещение: 0x4e9
+  Размер: 30 байт
+  Содержимое: application:openFileWithoutUI:
+
+  Секция: __objc_methname
+  Смещение: 0x508
+  Размер: 22 байт
+  Содержимое: application:openFiles:
+
+  Секция: __objc_methname
+  Смещение: 0x51f
+  Размер: 25 байт
+  Содержимое: application:openTempFile:
+
+  Секция: __objc_methname
+  Смещение: 0x539
+  Размер: 21 байт
+  Содержимое: application:openURLs:
+
+  Секция: __objc_methname
+  Смещение: 0x54f
+  Размер: 22 байт
+  Содержимое: application:printFile:
+
+  Секция: __objc_methname
+  Смещение: 0x566
+  Размер: 52 байт
+  Содержимое: application:printFiles:withSettings:showPrintPanels:
+
+  Секция: __objc_methname
+  Смещение: 0x59b
+  Размер: 45 байт
+  Содержимое: application:willContinueUserActivityWithType:
+
+  Секция: __objc_methname
+  Смещение: 0x5c9
+  Размер: 38 байт
+  Содержимое: application:willEncodeRestorableState:
+
+  Секция: __objc_methname
+  Смещение: 0x5f0
+  Размер: 29 байт
+  Содержимое: application:willPresentError:
+
+  Секция: __objc_methname
+  Смещение: 0x60e
+  Размер: 27 байт
+  Содержимое: applicationDidBecomeActive:
+
+  Секция: __objc_methname
+  Смещение: 0x62a
+  Размер: 35 байт
+  Содержимое: applicationDidChangeOcclusionState:
+
+  Секция: __objc_methname
+  Смещение: 0x64e
+  Размер: 37 байт
+  Содержимое: applicationDidChangeScreenParameters:
+
+  Секция: __objc_methname
+  Смещение: 0x674
+  Размер: 30 байт
+  Содержимое: applicationDidFinishLaunching:
+
+  Секция: __objc_methname
+  Смещение: 0x693
+  Размер: 19 байт
+  Содержимое: applicationDidHide:
+
+  Секция: __objc_methname
+  Смещение: 0x6c3
+  Размер: 21 байт
+  Содержимое: applicationDidUnhide:
+
+  Секция: __objc_methname
+  Смещение: 0x6d9
+  Размер: 21 байт
+  Содержимое: applicationDidUpdate:
+
+  Секция: __objc_methname
+  Смещение: 0x6ef
+  Размер: 20 байт
+  Содержимое: applicationDockMenu:
+
+  Секция: __objc_methname
+  Смещение: 0x704
+  Размер: 28 байт
+  Содержимое: applicationOpenUntitledFile:
+
+  Секция: __objc_methname
+  Смещение: 0x721
+  Размер: 43 байт
+  Содержимое: applicationProtectedDataDidBecomeAvailable:
+
+  Секция: __objc_methname
+  Смещение: 0x74d
+  Размер: 46 байт
+  Содержимое: applicationProtectedDataWillBecomeUnavailable:
+
+  Секция: __objc_methname
+  Смещение: 0x7b2
+  Размер: 48 байт
+  Содержимое: applicationShouldHandleReopen:hasVisibleWindows:
+
+  Секция: __objc_methname
+  Смещение: 0x7e3
+  Размер: 34 байт
+  Содержимое: applicationShouldOpenUntitledFile:
+
+  Секция: __objc_methname
+  Смещение: 0x806
+  Размер: 27 байт
+  Содержимое: applicationShouldTerminate:
+
+  Секция: __objc_methname
+  Смещение: 0x822
+  Размер: 48 байт
+  Содержимое: applicationShouldTerminateAfterLastWindowClosed:
+
+  Секция: __objc_methname
+  Смещение: 0x853
+  Размер: 41 байт
+  Содержимое: applicationSupportsSecureRestorableState:
+
+  Секция: __objc_methname
+  Смещение: 0x87d
+  Размер: 28 байт
+  Содержимое: applicationWillBecomeActive:
+
+  Секция: __objc_methname
+  Смещение: 0x89a
+  Размер: 20 байт
+  Содержимое: applicationWillHide:
+
+  Секция: __objc_methname
+  Смещение: 0x8cc
+  Размер: 25 байт
+  Содержимое: applicationWillTerminate:
+
+  Секция: __objc_methname
+  Смещение: 0x8e6
+  Размер: 22 байт
+  Содержимое: applicationWillUnhide:
+
+  Секция: __objc_methname
+  Смещение: 0x8fd
+  Размер: 22 байт
+  Содержимое: applicationWillUpdate:
+
+  Секция: __objc_methname
+  Смещение: 0x914
+  Размер: 11 байт
+  Содержимое: autorelease
+
+  Секция: __objc_methname
+  Смещение: 0x920
+  Размер: 29 байт
+  Содержимое: beginSheet:completionHandler:
+
+  Секция: __objc_methname
+  Смещение: 0x93e
+  Размер: 43 байт
+  Содержимое: beginSheetModalForWindow:completionHandler:
+
+  Секция: __objc_methname
+  Смещение: 0x96a
+  Размер: 6 байт
+  Содержимое: cancel
+
+  Секция: __objc_methname
+  Смещение: 0x971
+  Размер: 16 байт
+  Содержимое: EhGZPNzHwKRgCCR:
+
+  Секция: __objc_methname
+  Смещение: 0x982
+  Размер: 5 байт
+  Содержимое: class
+
+  Секция: __objc_methname
+  Смещение: 0x988
+  Размер: 5 байт
+  Содержимое: close
+
+  Секция: __objc_methname
+  Смещение: 0x98e
+  Размер: 20 байт
+  Содержимое: closeAndReturnError:
+
+  Секция: __objc_methname
+  Смещение: 0x9a3
+  Размер: 9 байт
+  Содержимое: closeFile
+
+  Секция: __objc_methname
+  Смещение: 0x9ad
+  Размер: 13 байт
+  Содержимое: configuration
+
+  Секция: __objc_methname
+  Смещение: 0x9bb
+  Размер: 19 байт
+  Содержимое: conformsToProtocol:
+
+  Секция: __objc_methname
+  Смещение: 0x9cf
+  Размер: 11 байт
+  Содержимое: contentView
+
+  Секция: __objc_methname
+  Смещение: 0x9db
+  Размер: 29 байт
+  Содержимое: countOfBytesExpectedToReceive
+
+  Секция: __objc_methname
+  Смещение: 0x9f9
+  Размер: 20 байт
+  Содержимое: countOfBytesReceived
+
+  Секция: __objc_methname
+  Смещение: 0xa0e
+  Размер: 37 байт
+  Содержимое: createFileAtPath:contents:attributes:
+
+  Секция: __objc_methname
+  Смещение: 0xa34
+  Размер: 40 байт
+  Содержимое: customWindowsToEnterFullScreenForWindow:
+
+  Секция: __objc_methname
+  Смещение: 0xa5d
+  Размер: 49 байт
+  Содержимое: customWindowsToEnterFullScreenForWindow:onScreen:
+
+  Секция: __objc_methname
+  Смещение: 0xa8f
+  Размер: 39 байт
+  Содержимое: customWindowsToExitFullScreenForWindow:
+
+  Секция: __objc_methname
+  Смещение: 0xab7
+  Размер: 38 байт
+  Содержимое: dataTaskWithRequest:completionHandler:
+
+  Секция: __objc_methname
+  Смещение: 0xade
+  Размер: 16 байт
+  Содержимое: debugDescription
+
+  Секция: __objc_methname
+  Смещение: 0xaef
+  Размер: 14 байт
+  Содержимое: defaultManager
+
+  Секция: __objc_methname
+  Смещение: 0xafe
+  Размер: 11 байт
+  Содержимое: description
+
+  Секция: __objc_methname
+  Смещение: 0xb0a
+  Размер: 20 байт
+  Содержимое: l3Bgt7wPqMfDuLpjhTW:
+
+  Секция: __objc_methname
+  Смещение: 0xb1f
+  Размер: 42 байт
+  Содержимое: downloadTaskWithRequest:completionHandler:
+
+  Секция: __objc_methname
+  Смещение: 0xb4a
+  Размер: 16 байт
+  Содержимое: draggingEntered:
+
+  Секция: __objc_methname
+  Смещение: 0xb5b
+  Размер: 18 байт
+  Содержимое: draggingPasteboard
+
+  Секция: __objc_methname
+  Смещение: 0xb71
+  Размер: 20 байт
+  Содержимое: endSheet:returnCode:
+
+  Секция: __objc_methname
+  Смещение: 0xb86
+  Размер: 29 байт
+  Содержимое: ephemeralSessionConfiguration
+
+  Секция: __objc_methname
+  Смещение: 0xba4
+  Размер: 34 байт
+  Содержимое: exceptionWithName:reason:userInfo:
+
+  Секция: __objc_methname
+  Смещение: 0xbc7
+  Размер: 17 байт
+  Содержимое: fileExistsAtPath:
+
+  Секция: __objc_methname
+  Смещение: 0xbd9
+  Размер: 32 байт
+  Содержимое: fileHandleForWritingToURL:error:
+
+  Секция: __objc_methname
+  Смещение: 0xbfa
+  Размер: 4 байт
+  Содержимое: fire
+
+  Секция: __objc_methname
+  Смещение: 0xbff
+  Размер: 17 байт
+  Содержимое: tPH1sJjuDibyKyvZ:
+
+  Секция: __objc_methname
+  Смещение: 0xc11
+  Размер: 33 байт
+  Содержимое: getAllTasksWithCompletionHandler:
+
+  Секция: __objc_methname
+  Смещение: 0xc33
+  Размер: 42 байт
+  Содержимое: getObjectValue:forString:errorDescription:
+
+  Секция: __objc_methname
+  Смещение: 0xc5e
+  Размер: 4 байт
+  Содержимое: hash
+
+  Секция: __objc_methname
+  Смещение: 0xc86
+  Размер: 21 байт
+  Содержимое: W2XzqivBZ3DYDegC6aQ0:
+
+  Секция: __objc_methname
+  Смещение: 0xc9c
+  Размер: 10 байт
+  Содержимое: invalidate
+
+  Секция: __objc_methname
+  Смещение: 0xca7
+  Размер: 19 байт
+  Содержимое: invalidateAndCancel
+
+  Секция: __objc_methname
+  Смещение: 0xcbb
+  Размер: 8 байт
+  Содержимое: isEqual:
+
+  Секция: __objc_methname
+  Смещение: 0xcc4
+  Размер: 16 байт
+  Содержимое: isEqualToString:
+
+  Секция: __objc_methname
+  Смещение: 0xcd5
+  Размер: 9 байт
+  Содержимое: isFileURL
+
+  Секция: __objc_methname
+  Смещение: 0xcdf
+  Размер: 8 байт
+  Содержимое: isHidden
+
+  Секция: __objc_methname
+  Смещение: 0xce8
+  Размер: 14 байт
+  Содержимое: isKindOfClass:
+
+  Секция: __objc_methname
+  Смещение: 0xcf7
+  Размер: 16 байт
+  Содержимое: isMemberOfClass:
+
+  Секция: __objc_methname
+  Смещение: 0xd08
+  Размер: 97 байт
+  Содержимое: isPartialStringValid:proposedSelectedRange:originalString:originalSelectedRange:errorDescription:
+
+  Секция: __objc_methname
+  Смещение: 0xd6a
+  Размер: 6 байт
+  Содержимое: length
+
+  Секция: __objc_methname
+  Смещение: 0xd71
+  Размер: 10 байт
+  Содержимое: mainBundle
+
+  Секция: __objc_methname
+  Смещение: 0xd92
+  Размер: 26 байт
+  Содержимое: moveItemAtURL:toURL:error:
+
+  Секция: __objc_methname
+  Смещение: 0xdad
+  Размер: 21 байт
+  Содержимое: 13J0BkTqH7tidWOKTgLN:
+
+  Секция: __objc_methname
+  Смещение: 0xdc3
+  Размер: 14 байт
+  Содержимое: MLBjWdHtH6x5V:
+
+  Секция: __objc_methname
+  Смещение: 0xdd2
+  Размер: 4 байт
+  Содержимое: path
+
+  Секция: __objc_methname
+  Смещение: 0xdd7
+  Размер: 13 байт
+  Содержимое: pathExtension
+
+  Секция: __objc_methname
+  Смещение: 0xde5
+  Размер: 21 байт
+  Содержимое: performDragOperation:
+
+  Секция: __objc_methname
+  Смещение: 0xdfb
+  Размер: 16 байт
+  Содержимое: performSelector:
+
+  Секция: __objc_methname
+  Смещение: 0xe0c
+  Размер: 27 байт
+  Содержимое: performSelector:withObject:
+
+  Секция: __objc_methname
+  Смещение: 0xe28
+  Размер: 38 байт
+  Содержимое: performSelector:withObject:withObject:
+
+  Секция: __objc_methname
+  Смещение: 0xe4f
+  Размер: 24 байт
+  Содержимое: prepareForDragOperation:
+
+  Секция: __objc_methname
+  Смещение: 0xe68
+  Размер: 43 байт
+  Содержимое: previewRepresentableActivityItemsForWindow:
+
+  Секция: __objc_methname
+  Смещение: 0xe94
+  Размер: 30 байт
+  Содержимое: readObjectsForClasses:options:
+
+  Секция: __objc_methname
+  Смещение: 0xbb6
+  Размер: 6 байт
+  Содержимое: reason
+
+  Секция: __objc_methname
+  Смещение: 0xeba
+  Размер: 24 байт
+  Содержимое: registerForDraggedTypes:
+
+  Секция: __objc_methname
+  Смещение: 0xed3
+  Размер: 20 байт
+  Содержимое: 5Kttlp0rLkZO6dD6xhs:
+
+  Секция: __objc_methname
+  Смещение: 0xee8
+  Размер: 23 байт
+  Содержимое: removeItemAtPath:error:
+
+  Секция: __objc_methname
+  Смещение: 0xf00
+  Размер: 22 байт
+  Содержимое: removeItemAtURL:error:
+
+  Секция: __objc_methname
+  Смещение: 0xf17
+  Размер: 19 байт
+  Содержимое: respondsToSelector:
+
+  Секция: __objc_methname
+  Смещение: 0xf2b
+  Размер: 6 байт
+  Содержимое: resume
+
+  Секция: __objc_methname
+  Смещение: 0xf32
+  Размер: 6 байт
+  Содержимое: retain
+
+  Секция: __objc_methname
+  Смещение: 0xf39
+  Размер: 11 байт
+  Содержимое: retainCount
+
+  Секция: __objc_methname
+  Смещение: 0xf45
+  Размер: 8 байт
+  Содержимое: runModal
+
+  Секция: __objc_methname
+  Смещение: 0xf4e
+  Размер: 13 байт
+  Содержимое: scanLongLong:
+
+  Секция: __objc_methname
+  Смещение: 0xf5c
+  Размер: 22 байт
+  Содержимое: scanString:intoString:
+
+  Секция: __objc_methname
+  Смещение: 0xf73
+  Размер: 37 байт
+  Содержимое: scanUpToCharactersFromSet:intoString:
+
+  Секция: __objc_methname
+  Смещение: 0xf99
+  Размер: 45 байт
+  Содержимое: scheduledTimerWithTimeInterval:repeats:block:
+
+  Секция: __objc_methname
+  Смещение: 0xfc7
+  Размер: 17 байт
+  Содержимое: seekToFileOffset:
+
+  Секция: __objc_methname
+  Смещение: 0xfd9
+  Размер: 19 байт
+  Содержимое: seekToOffset:error:
+
+  Секция: __objc_methname
+  Смещение: 0xfed
+  Размер: 12 байт
+  Содержимое: selectedItem
+
+  Секция: __objc_methname
+  Смещение: 0xffa
+  Размер: 4 байт
+  Содержимое: self
+
+  Секция: __objc_methname
+  Смещение: 0xfff
+  Размер: 48 байт
+  Содержимое: sessionWithConfiguration:delegate:delegateQueue:
+
+  Секция: __objc_methname
+  Смещение: 0x1030
+  Размер: 17 байт
+  Содержимое: setAccessoryView:
+
+  Секция: __objc_methname
+  Смещение: 0x1042
+  Размер: 14 байт
+  Содержимое: setAlertStyle:
+
+  Секция: __objc_methname
+  Смещение: 0x1051
+  Размер: 20 байт
+  Содержимое: setAllowedFileTypes:
+
+  Секция: __objc_methname
+  Смещение: 0x1066
+  Размер: 24 байт
+  Содержимое: setAllowsCellularAccess:
+
+  Секция: __objc_methname
+  Смещение: 0x107f
+  Размер: 27 байт
+  Содержимое: setAllowsMultipleSelection:
+
+  Секция: __objc_methname
+  Смещение: 0x109b
+  Размер: 24 байт
+  Содержимое: setAllowsOtherFileTypes:
+
+  Секция: __objc_methname
+  Смещение: 0x10b4
+  Размер: 20 байт
+  Содержимое: setIXVwDptpGNiCc6nQ:
+
+  Секция: __objc_methname
+  Смещение: 0x10c9
+  Размер: 26 байт
+  Содержимое: setkdH5olqaBKwnXQq5Iqgt7a:
+
+  Секция: __objc_methname
+  Смещение: 0x10e4
+  Размер: 23 байт
+  Содержимое: set6uEzs5D2mNIRSjiUraL:
+
+  Секция: __objc_methname
+  Смещение: 0x10fc
+  Размер: 24 байт
+  Содержимое: setCanChooseDirectories:
+
+  Секция: __objc_methname
+  Смещение: 0x1115
+  Размер: 18 байт
+  Содержимое: setCanChooseFiles:
+
+  Секция: __objc_methname
+  Смещение: 0x1128
+  Размер: 12 байт
+  Содержимое: setDelegate:
+
+  Секция: __objc_methname
+  Смещение: 0x1135
+  Размер: 11 байт
+  Содержимое: setEnabled:
+
+  Секция: __objc_methname
+  Смещение: 0x1141
+  Размер: 13 байт
+  Содержимое: setFormatter:
+
+  Секция: __objc_methname
+  Смещение: 0x114f
+  Размер: 25 байт
+  Содержимое: setHTTPAdditionalHeaders:
+
+  Секция: __objc_methname
+  Смещение: 0x1169
+  Размер: 33 байт
+  Содержимое: setHTTPMaximumConnectionsPerHost:
+
+  Секция: __objc_methname
+  Смещение: 0x118b
+  Размер: 10 байт
+  Содержимое: setHidden:
+
+  Секция: __objc_methname
+  Смещение: 0x1196
+  Размер: 17 байт
+  Содержимое: setIndeterminate:
+
+  Секция: __objc_methname
+  Смещение: 0x11a8
+  Размер: 21 байт
+  Содержимое: setvu0NLUg05G70NoYvI:
+
+  Секция: __objc_methname
+  Смещение: 0x11be
+  Размер: 22 байт
+  Содержимое: setxdXjlEX7Hm2aGCICpu:
+
+  Секция: __objc_methname
+  Смещение: 0x11d5
+  Размер: 19 байт
+  Содержимое: setInformativeText:
+
+  Секция: __objc_methname
+  Смещение: 0x11e9
+  Размер: 19 байт
+  Содержимое: setBpo6kvZE0ZpsKvr:
+
+  Секция: __objc_methname
+  Смещение: 0x11fd
+  Размер: 19 байт
+  Содержимое: setLMunOJhRQ4UhBpR:
+
+  Секция: __objc_methname
+  Смещение: 0x1211
+  Размер: 17 байт
+  Содержимое: setg9SaxN1waUuSc:
+
+  Секция: __objc_methname
+  Смещение: 0x1223
+  Размер: 17 байт
+  Содержимое: setCFXRIKCsGWTgz:
+
+  Секция: __objc_methname
+  Смещение: 0x1235
+  Размер: 18 байт
+  Содержимое: setMcB3JRCAL26zPC:
+
+  Секция: __objc_methname
+  Смещение: 0x1248
+  Размер: 16 байт
+  Содержимое: setBNXn3SZTf2MS:
+
+  Секция: __objc_methname
+  Смещение: 0x1259
+  Размер: 18 байт
+  Содержимое: setajeiVIewbc1VN3:
+
+  Секция: __objc_methname
+  Смещение: 0x126c
+  Размер: 18 байт
+  Содержимое: setWq0C1kMm81TVDE:
+
+  Секция: __objc_methname
+  Смещение: 0x127f
+  Размер: 11 байт
+  Содержимое: setMessage:
+
+  Секция: __objc_methname
+  Смещение: 0x128b
+  Размер: 14 байт
+  Содержимое: set6mUMjqKDk8:
+
+  Секция: __objc_methname
+  Смещение: 0x129a
+  Размер: 10 байт
+  Содержимое: setXTb11e:
+
+  Секция: __objc_methname
+  Смещение: 0x12a5
+  Размер: 12 байт
+  Содержимое: setlidoWWx6:
+
+  Секция: __objc_methname
+  Смещение: 0x12b2
+  Размер: 16 байт
+  Содержимое: setNeedsDisplay:
+
+  Секция: __objc_methname
+  Смещение: 0x12c3
+  Размер: 21 байт
+  Содержимое: setO4IZQm5zmvga2Vlu5:
+
+  Секция: __objc_methname
+  Смещение: 0x12d9
+  Размер: 29 байт
+  Содержимое: setTimeoutIntervalForRequest:
+
+  Секция: __objc_methname
+  Смещение: 0x12f7
+  Размер: 9 байт
+  Содержимое: setTitle:
+
+  Секция: __objc_methname
+  Смещение: 0x1301
+  Размер: 20 байт
+  Содержимое: setEeZqe54VQK9PIWis:
+
+  Секция: __objc_methname
+  Смещение: 0x1316
+  Размер: 24 байт
+  Содержимое: setWaitsForConnectivity:
+
+  Секция: __objc_methname
+  Смещение: 0x132f
+  Размер: 17 байт
+  Содержимое: sharedApplication
+
+  Секция: __objc_methname
+  Смещение: 0x1341
+  Размер: 11 байт
+  Содержимое: sheetParent
+
+  Секция: __objc_methname
+  Смещение: 0x134d
+  Размер: 5 байт
+  Содержимое: state
+
+  Секция: __objc_methname
+  Смещение: 0x1353
+  Размер: 10 байт
+  Содержимое: statusCode
+
+  Секция: __objc_methname
+  Смещение: 0x135e
+  Размер: 14 байт
+  Содержимое: stopAnimation:
+
+  Секция: __objc_methname
+  Смещение: 0x136d
+  Размер: 21 байт
+  Содержимое: stringForObjectValue:
+
+  Секция: __objc_methname
+  Смещение: 0x1383
+  Размер: 11 байт
+  Содержимое: stringValue
+
+  Секция: __objc_methname
+  Смещение: 0x138f
+  Размер: 8 байт
+  Содержимое: subviews
+
+  Секция: __objc_methname
+  Смещение: 0x1398
+  Размер: 10 байт
+  Содержимое: superclass
+
+  Секция: __objc_methname
+  Смещение: 0x13a3
+  Размер: 14 байт
+  Содержимое: taskIdentifier
+
+  Секция: __objc_methname
+  Смещение: 0x13b2
+  Размер: 12 байт
+  Содержимое: throwString:
+
+  Секция: __objc_methname
+  Смещение: 0x715
+  Размер: 5 байт
+  Содержимое: title
+
+  Секция: __objc_methname
+  Смещение: 0x13c5
+  Размер: 33 байт
+  Содержимое: tryBlock:catchBlock:finallyBlock:
+
+  Секция: __objc_methname
+  Смещение: 0x13e7
+  Размер: 5 байт
+  Содержимое: types
+
+  Секция: __objc_methname
+  Смещение: 0x13ed
+  Размер: 24 байт
+  Содержимое: valueForHTTPHeaderField:
+
+  Секция: __objc_methname
+  Смещение: 0x15c
+  Размер: 6 байт
+  Содержимое: window
+
+  Секция: __objc_methname
+  Смещение: 0x140d
+  Размер: 32 байт
+  Содержимое: window:didDecodeRestorableState:
+
+  Секция: __objc_methname
+  Смещение: 0x142e
+  Размер: 55 байт
+  Содержимое: window:shouldDragDocumentWithEvent:from:withPasteboard:
+
+  Секция: __objc_methname
+  Смещение: 0x1466
+  Размер: 35 байт
+  Содержимое: window:shouldPopUpDocumentPathMenu:
+
+  Секция: __objc_methname
+  Смещение: 0x148a
+  Размер: 66 байт
+  Содержимое: window:startCustomAnimationToEnterFullScreenOnScreen:withDuration:
+
+  Секция: __objc_methname
+  Смещение: 0x14cd
+  Размер: 57 байт
+  Содержимое: window:startCustomAnimationToEnterFullScreenWithDuration:
+
+  Секция: __objc_methname
+  Смещение: 0x1507
+  Размер: 56 байт
+  Содержимое: window:startCustomAnimationToExitFullScreenWithDuration:
+
+  Секция: __objc_methname
+  Смещение: 0x1540
+  Размер: 33 байт
+  Содержимое: window:willEncodeRestorableState:
+
+  Секция: __objc_methname
+  Смещение: 0x1562
+  Размер: 35 байт
+  Содержимое: window:willPositionSheet:usingRect:
+
+  Секция: __objc_methname
+  Смещение: 0x1586
+  Размер: 70 байт
+  Содержимое: window:willResizeForVersionBrowserWithMaxPreferredSize:maxAllowedSize:
+
+  Секция: __objc_methname
+  Смещение: 0x15cd
+  Размер: 36 байт
+  Содержимое: window:willUseFullScreenContentSize:
+
+  Секция: __objc_methname
+  Смещение: 0x15f2
+  Размер: 44 байт
+  Содержимое: window:willUseFullScreenPresentationOptions:
+
+  Секция: __objc_methname
+  Смещение: 0x1633
+  Размер: 20 байт
+  Содержимое: windowDidBecomeMain:
+
+  Секция: __objc_methname
+  Смещение: 0x1648
+  Размер: 33 байт
+  Содержимое: windowDidChangeBackingProperties:
+
+  Секция: __objc_methname
+  Смещение: 0x166a
+  Размер: 30 байт
+  Содержимое: windowDidChangeOcclusionState:
+
+  Секция: __objc_methname
+  Смещение: 0x1689
+  Размер: 22 байт
+  Содержимое: windowDidChangeScreen:
+
+  Секция: __objc_methname
+  Смещение: 0x16a0
+  Размер: 29 байт
+  Содержимое: windowDidChangeScreenProfile:
+
+  Секция: __objc_methname
+  Смещение: 0x16be
+  Размер: 23 байт
+  Содержимое: windowDidDeminiaturize:
+
+  Секция: __objc_methname
+  Смещение: 0x16d6
+  Размер: 23 байт
+  Содержимое: windowDidEndLiveResize:
+
+  Секция: __objc_methname
+  Смещение: 0x16ee
+  Размер: 18 байт
+  Содержимое: windowDidEndSheet:
+
+  Секция: __objc_methname
+  Смещение: 0x1701
+  Размер: 25 байт
+  Содержимое: windowDidEnterFullScreen:
+
+  Секция: __objc_methname
+  Смещение: 0x171b
+  Размер: 29 байт
+  Содержимое: windowDidEnterVersionBrowser:
+
+  Секция: __objc_methname
+  Смещение: 0x1739
+  Размер: 24 байт
+  Содержимое: windowDidExitFullScreen:
+
+  Секция: __objc_methname
+  Смещение: 0x1752
+  Размер: 28 байт
+  Содержимое: windowDidExitVersionBrowser:
+
+  Секция: __objc_methname
+  Смещение: 0x176f
+  Размер: 16 байт
+  Содержимое: windowDidExpose:
+
+  Секция: __objc_methname
+  Смещение: 0x1780
+  Размер: 30 байт
+  Содержимое: windowDidFailToExitFullScreen:
+
+  Секция: __objc_methname
+  Смещение: 0x179f
+  Размер: 21 байт
+  Содержимое: windowDidMiniaturize:
+
+  Секция: __objc_methname
+  Смещение: 0x17b5
+  Размер: 14 байт
+  Содержимое: windowDidMove:
+
+  Секция: __objc_methname
+  Смещение: 0x17ed
+  Размер: 16 байт
+  Содержимое: windowDidResize:
+
+  Секция: __objc_methname
+  Смещение: 0x17fe
+  Размер: 16 байт
+  Содержимое: windowDidUpdate:
+
+  Секция: __objc_methname
+  Смещение: 0x180f
+  Размер: 34 байт
+  Содержимое: windowForSharingRequestFromWindow:
+
+  Секция: __objc_methname
+  Смещение: 0x1832
+  Размер: 18 байт
+  Содержимое: windowShouldClose:
+
+  Секция: __objc_methname
+  Смещение: 0x1845
+  Размер: 25 байт
+  Содержимое: windowShouldZoom:toFrame:
+
+  Секция: __objc_methname
+  Смещение: 0x185f
+  Размер: 21 байт
+  Содержимое: windowWillBeginSheet:
+
+  Секция: __objc_methname
+  Смещение: 0x1875
+  Размер: 16 байт
+  Содержимое: windowWillClose:
+
+  Секция: __objc_methname
+  Смещение: 0x1886
+  Размер: 26 байт
+  Содержимое: windowWillEnterFullScreen:
+
+  Секция: __objc_methname
+  Смещение: 0x18a1
+  Размер: 30 байт
+  Содержимое: windowWillEnterVersionBrowser:
+
+  Секция: __objc_methname
+  Смещение: 0x18c0
+  Размер: 25 байт
+  Содержимое: windowWillExitFullScreen:
+
+  Секция: __objc_methname
+  Смещение: 0x18da
+  Размер: 29 байт
+  Содержимое: windowWillExitVersionBrowser:
+
+  Секция: __objc_methname
+  Смещение: 0x18f8
+  Размер: 22 байт
+  Содержимое: windowWillMiniaturize:
+
+  Секция: __objc_methname
+  Смещение: 0x190f
+  Размер: 24 байт
+  Содержимое: windowWillResize:toSize:
+
+  Секция: __objc_methname
+  Смещение: 0x1928
+  Размер: 37 байт
+  Содержимое: windowWillReturnFieldEditor:toObject:
+
+  Секция: __objc_methname
+  Смещение: 0x194e
+  Размер: 28 байт
+  Содержимое: windowWillReturnUndoManager:
+
+  Секция: __objc_methname
+  Смещение: 0x196b
+  Размер: 26 байт
+  Содержимое: windowWillStartLiveResize:
+
+  Секция: __objc_methname
+  Смещение: 0x1986
+  Размер: 40 байт
+  Содержимое: windowWillUseStandardFrame:defaultFrame:
+
+  Секция: __objc_methname
+  Смещение: 0x19af
+  Размер: 10 байт
+  Содержимое: writeData:
+
+  Секция: __objc_methname
+  Смещение: 0x19ba
+  Размер: 4 байт
+  Содержимое: zone
+
+
+Sensitive_method (9):
+  Секция: __objc_methname
+  Смещение: 0x39
+  Размер: 31 байт
+  Содержимое: application:delegateHandlesKey:
+
+  Секция: __objc_methname
+  Смещение: 0x472
+  Размер: 61 байт
+  Содержимое: application:didRegisterForRemoteNotificationsWithDeviceToken:
+
+  Секция: __objc_methname
+  Смещение: 0x6a7
+  Размер: 27 байт
+  Содержимое: applicationDidResignActive:
+
+  Секция: __objc_methname
+  Смещение: 0x77c
+  Размер: 53 байт
+  Содержимое: applicationShouldAutomaticallyLocalizeKeyEquivalents:
+
+  Секция: __objc_methname
+  Смещение: 0x8af
+  Размер: 28 байт
+  Содержимое: applicationWillResignActive:
+
+  Секция: __objc_methname
+  Смещение: 0xd7c
+  Размер: 21 байт
+  Содержимое: makeKeyAndOrderFront:
+
+  Секция: __objc_methname
+  Смещение: 0x161f
+  Размер: 19 байт
+  Содержимое: windowDidBecomeKey:
+
+  Секция: __objc_methname
+  Смещение: 0x17c4
+  Размер: 19 байт
+  Содержимое: windowDidResignKey:
+
+  Секция: __objc_methname
+  Смещение: 0x17d8
+  Размер: 20 байт
+  Содержимое: windowDidResignMain:
+
+
+Memory_method (5):
+  Секция: __objc_methname
+  Смещение: 0x212
+  Размер: 7 байт
+  Содержимое: dealloc
+
+  Секция: __objc_methname
+  Смещение: 0x23c
+  Размер: 15 байт
+  Содержимое: initWithString:
+
+  Секция: __objc_methname
+  Смещение: 0x23c
+  Размер: 4 байт
+  Содержимое: init
+
+  Секция: __objc_methname
+  Смещение: 0xc68
+  Размер: 14 байт
+  Содержимое: initWithCoder:
+
+  Секция: __objc_methname
+  Смещение: 0xc77
+  Размер: 14 байт
+  Содержимое: initWithFrame:
+
+
+Sensitive_password (2):
+  Секция: __objc_methname
+  Смещение: 0xd93f1
+  Размер: 6507 байт
+  Содержимое: Key: HTTPMaximumConnectionsPerHost WUqn1HT6GOfpsm:...
+
+  Секция: __objc_methname
+  Смещение: 0xd93f1
+  Размер: 6507 байт
+  Содержимое: Key: HTTPMaximumConnectionsPerHost WUqn1HT6GOfpsm:...
+
+
+Encoded_data (7):
+  Секция: __cstring
+  Смещение: 0xb0
+  Размер: 39 байт
+  Содержимое: _TtC9Installer23cGGyYWMIkastj042OZutyjy
+
+  Секция: __cstring
+  Смещение: 0x1f0
+  Размер: 39 байт
+  Содержимое: _TtC9Installer23oMMcwEpZ4xwiNr4ikdKZ0je
+
+  Секция: __cstring
+  Смещение: 0x370
+  Размер: 36 байт
+  Содержимое: _TtC9Installer20vCyPx8g3nZ4VjRqiES7C
+
+  Секция: __cstring
+  Смещение: 0x840
+  Размер: 59 байт
+  Содержимое: T@"_TtC9Installer17e03iwB4BpTA7vUhnM",N,&,VEeZqe54VQK9PIWis
+
+  Секция: __cstring
+  Смещение: 0x1800
+  Размер: 34 байт
+  Содержимое: _TtC9Installer18gCk74DOBKUfqs7BicO
+
+  Секция: __cstring
+  Смещение: 0x843
+  Размер: 33 байт
+  Содержимое: _TtC9Installer17e03iwB4BpTA7vUhnM
+
+  Секция: __cstring
+  Смещение: 0x1b90
+  Размер: 71 байт
+  Содержимое: _TtC9InstallerP33_43FE5A1FA230A40FEDCA6DEB43D7382C19ResourceBundleClass
+
+
+ObjC_class (1):
+  Секция: __objc_classname
+  Смещение: 0x0
+  Размер: 8 байт
+  Содержимое: TryCatch
+
+Выполняется команда: codesign -dvv /Users/oleg/Downloads/169ea42211969e2021784c9af170bdfe4b1fb29ae3e2c96f1bc87563f42bd9dc.macho
+
+Информация о подписи:
+  Основная информация о подписи  
+┏━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━┓
+┃ Параметр ┃ Значение           ┃
+┡━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━┩
+│ Статус   │ SignStatus.INVALID │
+│ Тип      │ SignType.ADHOC     │
+└──────────┴────────────────────┘
+
+     Информация о      
+     разработчике      
+┏━━━━━━━━━━┳━━━━━━━━━━┓
+┃ Параметр ┃ Значение ┃
+┡━━━━━━━━━━╇━━━━━━━━━━┩
+│ team_id  │ not set  │
+└──────────┴──────────┘
+
+
+Анализ разрешений:
+Выполняется команда: codesign -dvv /Users/oleg/Downloads/169ea42211969e2021784c9af170bdfe4b1fb29ae3e2c96f1bc87563f42bd9dc.macho
+
+Анализ отладочной информации:
+                  Отладочная информация                  
+┏━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+┃ Параметр           ┃ Значение                         ┃
+┡━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┩
+│ DWARF информация   │ Отсутствует                      │
+│ Отладочные символы │ Отсутствуют                      │
+│ UUID dSYM          │ 1609837BE469347C8DFC3AFC79FD5598 │
+└────────────────────┴──────────────────────────────────┘
