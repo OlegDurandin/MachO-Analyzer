@@ -1488,3 +1488,159 @@ class MachOPlugin(ABC):
 └───────────────────────┴────────────────────────────────────────────────────────┴───────────────────────────────────────────┘
 ```
 
+### Плагин анализа встроенных данных ``embedded_data_analyzer_plugin.py``
+
+Плагин предназначен для анализа встроенных данных в Mach-O файлах, включая строки, изображения, скрипты и другие типы данных.
+
+#### Основные возможности
+
+1. **Анализ базовой информации**:
+   - Общее количество секций
+   - Общее количество элементов данных
+   - Общий размер встроенных данных
+
+2. **Анализ по секциям**:
+   - Имя секции
+   - Смещение в файле
+   - Размер секции
+   - Список найденных данных
+
+3. **Типы анализируемых данных**:
+   - Строки (String)
+   - Изображения (Image)
+   - Скрипты (Script)
+   - Конфигурации (Config)
+   - Бинарные данные (Binary)
+   - Зашифрованные данные (Encrypted)
+   - Неизвестные данные (Unknown)
+
+4. **Анализ чувствительных данных**:
+   - Пароли и учетные данные
+   - URL-адреса
+   - Email-адреса
+   - IP-адреса
+   - Пути к файлам
+   - API-ключи и токены
+
+5. **Распознавание форматов файлов**:
+   - PNG, JPEG, GIF, WEBP, BMP, TIFF
+   - PDF, ZIP, RAR, 7ZIP, GZIP, BZIP2
+   - DMG, ELF, Mach-O, DYLIB
+   - ISO, Base64
+
+6. **Анализ криптографических констант**:
+   - AES S-box
+   - SHA256 IV
+   - MD5 IV
+   - RSA экспонента
+   - Blowfish PI
+   - RC4 таблица
+   - Serpent PHI
+   - Twofish RS
+   - Camellia SIGMA
+
+7. **Анализ Objective-C секций**:
+   - Методы (``__objc_methname``)
+   - Имена классов (``__objc_classname``)
+   - Чувствительные операции
+   - Методы управления памятью
+
+#### Пример вывода
+```
+Основная информация о встроенных данных
+┏━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━┓
+┃ Параметр               ┃ Значение     ┃
+┡━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━┩
+│ Всего секций           │ 18           │
+│ Всего элементов данных │ 20577        │
+│ Общий размер           │ 1557530 байт │
+└────────────────────────┴──────────────┘
+
+Секция: __const
+Смещение: 0x4719e46
+Размер: 76258 байт
+┏━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━┳━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━┓
+┃ Тип                 ┃ Смещение  ┃ Размер ┃ Содержимое                                                ┃ Чувствительные данные ┃
+┡━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━╇━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━┩
+│ Sensitive_password  │ 0x4719e46 │ 311    │ key:isOutgoing:connections:maxLayer:allowP2P:allow...     │ Нет                   │
+│ Sensitive_password  │ 0x4719fbe │ 249    │ key:isOutgoing:connections:maxLayer:allowP2P:allow...     │ Нет                   │
+│ Sensitive_password  │ 0x471a0f8 │ 281    │ key:isOutgoing:connections:maxLayer:allowP2P:allow...     │ Нет                   │
+│ Sensitive_password  │ 0x471a252 │ 249    │ key:isOutgoing:connections:maxLayer:allowP2P:allow...     │ Нет                   │
+│ Sensitive_password  │ 0x471a38c │ 249    │ key:isOutgoing:connections:maxLayer:allowP2P:allow...     │ Нет                   │
+│ Sensitive_password  │ 0x471a4c6 │ 249    │ key:isOutgoing:connections:maxLayer:allowP2P:allow...     │ Нет                   │
+│ Sensitive_password  │ 0x471a600 │ 358    │ key:isOutgoing:connections:maxLayer:allowP2P:allow...     │ Нет                   │
+│ Sensitive_password  │ 0x471a7a7 │ 250    │ key:isOutgoing:connections:maxLayer:allowP2P:allow...     │ Нет                   │
+│ Sensitive_password  │ 0x471a8e2 │ 248    │ key:isOutgoing:connections:maxLayer:allowP2P:allow...     │ Нет                   │
+│
+...
+│ Sensitive_url       │ 0x471e7c6 │ 2470   │ http://www.ietf.org/id/draft-holmer-rmcat-transpor...     │ Нет                   │
+│ Sensitive_url       │ 0x4721b96 │ 762    │ http://www.webrtc.org/experiments/rtp-hdrext/abs-s...     │ Нет                   │
+│ Sensitive_url       │ 0x4776575 │ 26     │ http://www.w3.org/ns/ttml"                                │ Нет                   │
+│ Sensitive_url       │ 0x4813a2f │ 104    │ http://crl.comodoca.com/AAACertificateServices.crl...     │ Нет                   │
+│ Sensitive_url       │ 0x4813d5e │ 57     │ http://crl.comodoca.com/COMODOCertificationAuthori...     │ Нет                   │
+│ Sensitive_url       │ 0x481c12d │ 1260   │ http://www.webrtc.org/experiments/rtp-hdrext/abs-c...     │ Нет                   │
+│ Sensitive_url       │ 0x482bb1a │ 69     │ http://www.webrtc.org/experiments/rtp-hdrext/inban...     │ Нет                   │
+│ Sensitive_ip        │ 0x480ef5c │ 7      │ 8.8.8.8                                                   │ Нет                   │
+│ Sensitive_ip        │ 0x481e00c │ 9      │ 127.0.0.1                                                 │ Нет                   │
+│ Sensitive_ip        │ 0x481e0f4 │ 7      │ 0.0.0.0                                                   │ Нет                   │
+│ Sensitive_ip        │ 0x481e606 │ 7      │ 0.0.0.0                                                   │ Нет                   │
+│ Sensitive_file_path │ 0x470c374 │ 4      │ /3.1                                                      │ Нет                   │
+│ Sensitive_file_path │ 0x470c384 │ 4      │ /1.1                                                      │ Нет                   │
+│ Sensitive_file_path │ 0x471e7cc │ 13     │ /www.ietf.org                                             │ Нет                   │
+│ Sensitive_file_path │ 0x4721b9c │ 15     │ /www.webrtc.org                                           │ Нет                   │
+│ Sensitive_file_path │ 0x475b082 │ 8      │ /__5DD.9                                                  │ Нет                   │
+│ Sensitive_file_path │ 0x477526f │ 7      │ /vnd.ms                                                   │ Нет                   │
+...
+│ Sensitive_file_path │ 0x46d2724 │ 36     │ /0123456789efghijklmno.é½½ģøc½                            │ Нет                   │
+│ Sensitive_file_path │ 0x47861cb │ 4      │ /P.S                                                      │ Нет                   │
+│ Crypto_RSA_E        │ 0x4692b62 │ 3      │                                                            │ Нет                   │
+│ Crypto_RC4_INIT     │ 0x471b630 │ 16     │                                                            │ Нет                   │
+│                     │           │        │                                                           │                       │
+│ Crypto_RSA_E        │ 0x4dac02a │ 3      │                                                            │ Нет                   │
+│ Crypto_RC4_INIT     │ 0x4f834c0 │ 16     │                                                            │ Нет                   │
+│                     │           │        │                                                           │                       │
+└─────────────────────┴───────────┴────────┴───────────────────────────────────────────────────────────┴───────────────────────┘
+
+Секция: __objc_methname
+Смещение: 0x0
+Размер: 649246 байт
+┏━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━┳━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━┓
+┃ Тип                ┃ Смещение  ┃ Размер ┃ Содержимое                                                                                              ┃ Чувствительные данные ┃
+┡━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━╇━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━┩
+│ ObjC_method        │ 0x0       │ 125    │ EESV_PNS4_14TurnCustomizerEPNS7_22SSLCertificateVerifierEPKNS4_15FieldTrialsViewEE3$_2NSP_IS13_EEFvP... │ Нет                   │
+│ Memory_method      │ 0x7e      │ 347    │ ZN7cricket8TurnPortC1EPN6webrtc13TaskQueueBaseEPN3rtc19PacketSocketFactoryEPKNS4_7NetworkEttNSt3__11... │ Нет                   │
+│ ObjC_method        │ 0x1db     │ 6      │                                                                                                         │ Нет                   │
+│                    │           │        │                                                                                                         │                       │
+│                    │           │        │                                                                                                         │                       │
+│ Memory_method      │ 0x1e2     │ 128    │ NSt3__110__function6__funcIZN7cricket8TurnPort22CreateTurnClientSocketEvE3$_4NS_9allocatorIS4_EEFvPN... │ Нет                   │
+│ ObjC_method        │ 0x1fd     │ 50     │ ZN7cricket8TurnPort22CreateTurnClientSocketEvE3$_4                                                      │ Нет                   │
+...
+│ Sensitive_api_key  │ 0x4891a8b │ 31     │ Secret: T@"NSRegularExpression"                                                                          │ Нет                   │
+└────────────────────┴───────────┴────────┴─────────────────────────────────────────────────────────────────────────────────────────────────────────┴───────────────────────┘
+
+Секция: __swift5_typeref
+Смещение: 0x48c9745
+Размер: 18192 байт
+┏━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━┳━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━┓
+┃ Тип                ┃ Смещение  ┃ Размер ┃ Содержимое                                      ┃ Чувствительные данные ┃
+┡━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━╇━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━┩
+│ Sensitive_password │ 0x48c9745 │ 9096   │ Key: uniforms unique uniqueID uniqueId uniqueKey u... │ Нет                   │
+│ Sensitive_password │ 0x48c9745 │ 9096   │ Key: uniforms unique uniqueID uniqueId uniqueKey u... │ Нет                   │
+└────────────────────┴───────────┴────────┴─────────────────────────────────────────────────┴───────────────────────┘
+
+Секция: __cstring
+Смещение: 0x14
+Размер: 761368 байт
+┏━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━┳━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━┓
+┃ Тип                 ┃ Смещение  ┃ Размер ┃ Содержимое                                                                                              ┃ Чувствительные данные ┃
+┡━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━╇━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━┩
+│ Encoded_data        │ 0x14      │ 39     │ So29OngoingGroupCallBroadcastPartCIegg_                                                                 │ Нет                   │
+│ Encoded_data        │ 0xf8      │ 65     │ So44OngoingCallThreadLocalContextWebrtcVideoView_So6NSViewCXcSgXw                                       │ Нет                   │
+│ Encoded_data        │ 0x222     │ 41     │ So29OngoingGroupCallBroadcastPartCSgIegg_                                                               │ Нет                   │
+│ Encoded_data        │ 0x24c     │ 53     │ SaySo39OngoingGroupCallMediaChannelDescriptionCGIegg_                                                   │ Нет                   │
+│ Encoded_data        │ 0x50a     │ 40     │ $s12TelegramVoip21SharedHLSServerSourceP                                                                │ Нет                   │
+...
+│ Crypto_RSA_E        │ 0x4af4a78 │ 3      │                                                        │ Нет                   │
+└─────────────────────┴───────────┴────────┴───────────────────────────────────────────────────────┴───────────────────────┘
+
+```
