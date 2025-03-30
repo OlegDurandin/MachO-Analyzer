@@ -1192,21 +1192,7 @@ class MachOPlugin(ABC):
 │                                                                                                                                                                                                  │ Unknown │ N/A    │ 0x400280221fbe8 │ N/A      │
 ...
 │ detail_50021cpp_regex_traits_baseIcEENS1_31cpp_regex_traits_implementationIcEEE6do_getERKS3_mE6s_data                                                                                            │ Global  │ N/A    │ 0x104f19e20     │ Exported │
-│ cEENS1_31cpp_regex_traits_implementationIcEEE6do_getERKS3_mE6s_data                                                                                                                              │ Global  │ N/A    │ 0x104f1a250     │ Exported │
-│ tationIcEEE6do_getERKS3_mE6s_data                                                                                                                                                                │ Global  │ N/A    │ 0x104f19e10     │ Exported │
-│ __ZGVZN5boost13re_detail_50031cpp_regex_traits_implementationIcE4initEvE11null_string                                                                                                            │ Global  │ N/A    │ 0x104f1af80     │ Exported │
-│ egex_traits_implementationIcE4initEvE11null_string                                                                                                                                               │ Global  │ N/A    │ 0x104f1b108     │ Exported │
-│ E11null_string                                                                                                                                                                                   │ Global  │ N/A    │ 0x104f1b070     │ Exported │
-│ gex_traitsIcE21get_catalog_name_instEvE6s_name                                                                                                                                                   │ Global  │ N/A    │ 0x104f1b790     │ Exported │
-│ EvE6s_name                                                                                                                                                                                       │ Global  │ N/A    │ 0x104f1f3e0     │ Exported │
-│ calInvokerILb0EvRN6webrtc20RtpTransportInternal41callback_undemuxable_rtp_packet_received_MUlRNS3_17RtpPacketReceivedEE_EJS6_EEET0_PNS1_15TypeErasedStateEDpNS1_18ForwardedParameterIT2_E4typeE  │ Global  │ N/A    │ 0x104f1f2b0     │ Exported │
-│ ortInternal41callback_undemuxable_rtp_packet_received_MUlRNS3_17RtpPacketReceivedEE_EJS6_EEET0_PNS1_15TypeErasedStateEDpNS1_18ForwardedParameterIT2_E4typeE                                      │ Global  │ N/A    │ 0x104f1e1c0     │ Exported │
-│ _packet_received_MUlRNS3_17RtpPacketReceivedEE_EJS6_EEET0_PNS1_15TypeErasedStateEDpNS1_18ForwardedParameterIT2_E4typeE                                                                           │ Global  │ N/A    │ 0x104f1a260     │ Exported │
-│ eceivedEE_EJS6_EEET0_PNS1_15TypeErasedStateEDpNS1_18ForwardedParameterIT2_E4typeE                                                                                                                │ Global  │ N/A    │ 0x104f1d9f0     │ Exported │
-│ dStateEDpNS1_18ForwardedParameterIT2_E4typeE                                                                                                                                                     │ Global  │ N/A    │ 0x104f21658     │ Exported │
-│ typeE                                                                                                                                                                                            │ Global  │ N/A    │ 0x104f1ce48     │ Exported │
-│ tcherIPKcNSt3__19allocatorINS_9sub_matchIS3_EEEENS_12regex_traitsIcNS_16cpp_regex_traitsIcEEEEE10match_failEv                                                                                    │ Global  │ N/A    │ 0x104f1d608     │ Exported │
-│ 3_EEEENS_12regex_traitsIcNS_16cpp_regex_traitsIcEEEEE10match_failEv                                                                                                                              │ Global  │ N/A    │ 0x104f1a298     │ Exported │
+...
 │ aitsIcEEEEE10match_failEv                                                                                                                                                                        │ Global  │ N/A    │ 0x104f1e3c8     │ Exported │
 ...
 │ enerator                                                                                                                                                                                         │ Global  │ N/A    │ N/A             │ Exported │
@@ -2341,3 +2327,15 @@ shell
 * Telegram (Результат: `./results/telegram_log.txt` )
 * Simple hello world application (clang) (Результат: `./results/simple_app_with_stack_canary.txt` )
 * Malware sample https://bazaar.abuse.ch/sample/169ea42211969e2021784c9af170bdfe4b1fb29ae3e2c96f1bc87563f42bd9dc/  (Результат: `./result/virus_log.txt`)
+
+
+
+## Материал
+В ходе работы над финальным проектом использовался следующий материал:
+* Спецификация Mach-O ABI https://github.com/aidansteele/osx-abi-macho-file-format-reference 
+* Patrick Wardle - The Art of Mac Malware, Volume 1 https://nostarch.com/art-mac-malware-volume-1 
+* Patrick Wardle - The Art of Mac Malware, Volume 2 https://nostarch.com/art-mac-malware-v2 
+* Alex Dremov - The Mysteru of Mach-O bject Structure https://alexdremov.me/mystery-of-mach-o-object-file-builders/ 
+* Разработка вредоносного ПО для MacOS https://habr.com/ru/companies/bastion/articles/814199/ 
+
+ 
