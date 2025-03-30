@@ -1016,3 +1016,319 @@ class MachOPlugin(ABC):
 │ CRITICAL │ Обнаружены критические уязвимости (3) │ Немедленно исправить критические уязвимости │
 └──────────┴───────────────────────────────────────┴─────────────────────────────────────────────┘
 ```
+
+### Плагин анализа символов ``symbol_analyzer_plugin.py``
+
+Плагин анализа символов является компонентом Mach-O Analyzer, который специализируется на анализе символов и динамических библиотек в Mach-O файлах. Этот анализатор необходим для понимания структуры приложения, его зависимостей и потенциальных проблем безопасности.
+
+#### Теоретическая часть
+
+##### Символы в Mach-O файлах
+
+Символы в Mach-O файлах представляют собой именованные ссылки на функции, переменные и другие элементы программы. Они играют важную роль в:
+
+1. **Линковке**
+   - Разрешение внешних зависимостей
+   - Связывание объектных файлов
+   - Динамическая загрузка библиотек
+
+2. **Отладке**
+   - Связывание с отладочными символами
+   - Поиск исходного кода
+   - Анализ стека вызовов
+
+3. **Безопасности**
+   - Проверка целостности
+   - Анализ экспортируемых функций
+   - Обнаружение вредоносного кода
+
+##### Типы символов
+
+1. **Локальные символы**
+   - Видимы только внутри файла
+   - Не экспортируются
+   - Используются для внутренних ссылок
+
+2. **Глобальные символы**
+   - Видимы во всех файлах
+   - Могут быть экспортированы
+   - Используются для внешних ссылок
+
+3. **Слабые символы**
+   - Могут быть переопределены
+   - Используются для плагинов
+   - Позволяют переопределение
+
+4. **Неопределенные символы**
+   - Требуют разрешения
+   - Ссылаются на внешние определения
+   - Загружаются динамически
+
+##### Динамические библиотеки
+
+1. **Системные библиотеки**
+   - Расположены в системных директориях
+   - Предоставляют базовый функционал
+   - Требуют проверки версий
+
+2. **Пользовательские библиотеки**
+   - Создаются разработчиками
+   - Могут быть приватными
+   - Требуют проверки безопасности
+
+3. **Слабые библиотеки**
+   - Могут отсутствовать
+   - Используются для опционального функционала
+   - Требуют проверки наличия
+
+#### Основной функционал ``symbol_analyzer_plugin.py``
+
+1. **Анализ базовой информации**
+   - Общее количество символов
+   - Количество глобальных символов
+   - Количество локальных символов
+   - Количество неопределенных символов
+   - Количество слабых символов
+   - Количество экспортируемых символов
+
+2. **Анализ символов**
+
+   - **Типы символов**
+     - Локальные
+     - Глобальные
+     - Слабые
+     - Неопределенные
+     - Неизвестные
+
+   - **Атрибуты символов**
+     - Имя
+     - Тип
+     - Секция
+     - Адрес
+     - Флаги
+
+   - **Флаги символов**
+     - Weak (слабый)
+     - Undefined (неопределенный)
+     - Exported (экспортируемый)
+     - Private (приватный)
+     - Resolver (резолвер)
+
+3. **Анализ библиотек**
+
+   - **Типы библиотек**
+     - Системные
+     - Пользовательские
+     - Приватные
+     - Слабые
+     - Реэкспортируемые
+
+   - **Атрибуты библиотек**
+     - Имя
+     - Путь
+     - Тип
+     - Флаги
+
+   - **Флаги библиотек**
+     - Weak (слабая)
+     - Reexported (реэкспортируемая)
+     - Private (приватная)
+     - System (системная)
+
+4. **Специальные проверки**
+
+   - **Безопасность**
+     - Проверка приватных символов
+     - Анализ экспортируемых функций
+     - Проверка слабых символов
+
+   - **Зависимости**
+     - Анализ системных библиотек
+     - Проверка версий
+     - Поиск конфликтов
+
+   - **Оптимизация**
+     - Анализ неиспользуемых символов
+     - Проверка дубликатов
+     - Оценка размера
+
+#### Вывод результатов
+
+Ниже приведен пример вывода для приложения:
+
+```
+Основная информация о символах и библиотеках
+┏━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━┓
+┃ Параметр         ┃ Значение ┃
+┡━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━┩
+│ Всего символов   │ 4610     │
+│ Глобальных       │ 3585     │
+│ Локальных        │ 434      │
+│ Неопределенных   │ 0        │
+│ Слабых           │ 0        │
+│ Экспортируемых   │ 3585     │
+│ Всего библиотек  │ 92       │
+│ Системных        │ 64       │
+│ Приватных        │ 28       │
+│ Слабых           │ 32       │
+│ Реэкспортируемых │ 0        │
+└──────────────────┴──────────┘
+
+Символы
+┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━┳━━━━━━━━┳━━━━━━━━━━━━━━━━━┳━━━━━━━━━━┓
+┃ Имя                                                                                                                                                                                              ┃ Тип     ┃ Секция ┃ Адрес           ┃ Флаги    ┃
+┡━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━╇━━━━━━━━╇━━━━━━━━━━━━━━━━━╇━━━━━━━━━━┩
+│                                                                                                                                                                                                  │ Unknown │ N/A    │ 0x40014021ff994 │ N/A      │
+│                                                                                                                                                                                                  │ Unknown │ N/A    │ 0x4002802201a78 │ N/A      │
+│                                                                                                                                                                                                  │ Unknown │ N/A    │ 0x4002002203034 │ N/A      │
+│                                                                                                                                                                                                  │ Local   │ N/A    │ 0x4002402208dd4 │ N/A      │
+│                                                                                                                                                                                                  │ Unknown │ N/A    │ 0x400280220a588 │ N/A      │
+│                                                                                                                                                                                                  │ Local   │ N/A    │ 0x4002002210e20 │ N/A      │
+│                                                                                                                                                                                                  │ Local   │ N/A    │ 0x40038022131e0 │ N/A      │
+│                                                                                                                                                                                                  │ Unknown │ N/A    │ 0x4002802215178 │ N/A      │
+│                                                                                                                                                                                                  │ Local   │ N/A    │ 0x4001c02216dcc │ N/A      │
+│                                                                                                                                                                                                  │ Unknown │ N/A    │ 0x4002802219b08 │ N/A      │
+│                                                                                                                                                                                                  │ Unknown │ N/A    │ 0x400280221a854 │ N/A      │
+│                                                                                                                                                                                                  │ Unknown │ N/A    │ 0x400280221b198 │ N/A      │
+│                                                                                                                                                                                                  │ Unknown │ N/A    │ 0x400280221fbe8 │ N/A      │
+...
+│ detail_50021cpp_regex_traits_baseIcEENS1_31cpp_regex_traits_implementationIcEEE6do_getERKS3_mE6s_data                                                                                            │ Global  │ N/A    │ 0x104f19e20     │ Exported │
+...
+│ aitsIcEEEEE10match_failEv                                                                                                                                                                        │ Global  │ N/A    │ 0x104f1e3c8     │ Exported │
+...
+│ enerator                                                                                                                                                                                         │ Global  │ N/A    │ N/A             │ Exported │
+│ erTrackOutput                                                                                                                                                                                    │ Global  │ N/A    │ N/A             │ Exported │
+│ riter                                                                                                                                                                                            │ Global  │ N/A    │ N/A             │ Exported │
+│ terInputPixelBufferAdaptor                                                                                                                                                                       │ Global  │ N/A    │ N/A             │ Exported │
+└──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┴─────────┴────────┴─────────────────┴──────────┘
+
+Библиотеки
+┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━┳━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+┃ Имя                                                                                             ┃ Тип              ┃ Флаги ┃ Путь                                        ┃
+┡━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━╇━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┩
+│ /usr/lib/libc++.1.dylib                                                                         │ Системная        │ N/A   │ N/A                                         │
+│ @rpath/libswiftAppKit.dylib                                                                     │ Пользовательская │ N/A   │ @rpath/libswiftAppKit.dylib                 │
+│ /System/Library/Frameworks/SceneKit.framework/Versions/A/SceneKit                               │ Системная        │ N/A   │ N/A                                         │
+│ /System/Library/Frameworks/CoreMediaIO.framework/Versions/A/CoreMediaIO                         │ Системная        │ N/A   │ N/A                                         │
+│ /System/Library/Frameworks/Carbon.framework/Versions/A/Carbon                                   │ Системная        │ N/A   │ N/A                                         │
+│ /System/Library/Frameworks/WebKit.framework/Versions/A/WebKit                                   │ Системная        │ N/A   │ N/A                                         │
+│ /usr/lib/libbz2.1.0.dylib                                                                       │ Системная        │ N/A   │ N/A                                         │
+│ /System/Library/Frameworks/MetalKit.framework/Versions/A/MetalKit                               │ Системная        │ N/A   │ N/A                                         │
+│ /System/Library/Frameworks/Metal.framework/Versions/A/Metal                                     │ Системная        │ N/A   │ N/A                                         │
+│ /System/Library/Frameworks/CoreSpotlight.framework/Versions/A/CoreSpotlight                     │ Системная        │ Weak  │ N/A                                         │
+│ @rpath/Sparkle.framework/Versions/A/Sparkle                                                     │ Пользовательская │ Weak  │ @rpath/Sparkle.framework/Versions/A/Sparkle │
+│ /System/Library/Frameworks/Contacts.framework/Versions/A/Contacts                               │ Системная        │ N/A   │ N/A                                         │
+│ /System/Library/Frameworks/QuartzCore.framework/Versions/A/QuartzCore                           │ Системная        │ N/A   │ N/A                                         │
+│ /System/Library/Frameworks/Security.framework/Versions/A/Security                               │ Системная        │ N/A   │ N/A                                         │
+│ /System/Library/Frameworks/VideoToolbox.framework/Versions/A/VideoToolbox                       │ Системная        │ N/A   │ N/A                                         │
+│ /System/Library/Frameworks/Accelerate.framework/Versions/A/Accelerate                           │ Системная        │ N/A   │ N/A                                         │
+│ /usr/lib/libz.1.dylib                                                                           │ Системная        │ N/A   │ N/A                                         │
+│ /usr/lib/libiconv.2.dylib                                                                       │ Системная        │ N/A   │ N/A                                         │
+│ /System/Library/Frameworks/AppKit.framework/Versions/C/AppKit                                   │ Системная        │ N/A   │ N/A                                         │
+│ /System/Library/Frameworks/LocalAuthentication.framework/Versions/A/LocalAuthentication         │ Системная        │ N/A   │ N/A                                         │
+│ /System/Library/Frameworks/CoreServices.framework/Versions/A/CoreServices                       │ Системная        │ N/A   │ N/A                                         │
+│ /System/Library/Frameworks/CoreVideo.framework/Versions/A/CoreVideo                             │ Системная        │ N/A   │ N/A                                         │
+│ /System/Library/Frameworks/CoreMedia.framework/Versions/A/CoreMedia                             │ Системная        │ N/A   │ N/A                                         │
+│ /System/Library/Frameworks/OpenGL.framework/Versions/A/OpenGL                                   │ Системная        │ N/A   │ N/A                                         │
+│ /System/Library/Frameworks/IOKit.framework/Versions/A/IOKit                                     │ Системная        │ N/A   │ N/A                                         │
+│ /System/Library/Frameworks/QuickLook.framework/Versions/A/QuickLook                             │ Системная        │ N/A   │ N/A                                         │
+│ /System/Library/Frameworks/JavaScriptCore.framework/Versions/A/JavaScriptCore                   │ Системная        │ N/A   │ N/A                                         │
+│ /System/Library/Frameworks/MapKit.framework/Versions/A/MapKit                                   │ Системная        │ N/A   │ N/A                                         │
+│ /System/Library/Frameworks/Quartz.framework/Versions/A/Quartz                                   │ Системная        │ N/A   │ N/A                                         │
+│ /System/Library/Frameworks/Foundation.framework/Versions/C/Foundation                           │ Системная        │ N/A   │ N/A                                         │
+│ /System/Library/Frameworks/AVFoundation.framework/Versions/A/AVFoundation                       │ Системная        │ N/A   │ N/A                                         │
+│ /System/Library/Frameworks/MediaPlayer.framework/Versions/A/MediaPlayer                         │ Системная        │ N/A   │ N/A                                         │
+│ /usr/lib/libobjc.A.dylib                                                                        │ Системная        │ N/A   │ N/A                                         │
+│ /usr/lib/libSystem.B.dylib                                                                      │ Системная        │ N/A   │ N/A                                         │
+│ /System/Library/Frameworks/AVKit.framework/Versions/A/AVKit                                     │ Системная        │ N/A   │ N/A                                         │
+│ /System/Library/Frameworks/ApplicationServices.framework/Versions/A/ApplicationServices         │ Системная        │ N/A   │ N/A                                         │
+│ /System/Library/Frameworks/AudioToolbox.framework/Versions/A/AudioToolbox                       │ Системная        │ N/A   │ N/A                                         │
+│ /System/Library/Frameworks/CFNetwork.framework/Versions/A/CFNetwork                             │ Системная        │ N/A   │ N/A                                         │
+│ /System/Library/Frameworks/CoreAudio.framework/Versions/A/CoreAudio                             │ Системная        │ N/A   │ N/A                                         │
+│ /System/Library/Frameworks/CoreFoundation.framework/Versions/A/CoreFoundation                   │ Системная        │ N/A   │ N/A                                         │
+│ /System/Library/Frameworks/CoreGraphics.framework/Versions/A/CoreGraphics                       │ Системная        │ N/A   │ N/A                                         │
+│ /System/Library/Frameworks/CoreImage.framework/Versions/A/CoreImage                             │ Системная        │ N/A   │ N/A                                         │
+│ /System/Library/Frameworks/CoreLocation.framework/Versions/A/CoreLocation                       │ Системная        │ N/A   │ N/A                                         │
+│ /System/Library/Frameworks/CoreText.framework/Versions/A/CoreText                               │ Системная        │ N/A   │ N/A                                         │
+│ /System/Library/Frameworks/IOSurface.framework/Versions/A/IOSurface                             │ Системная        │ N/A   │ N/A                                         │
+│ /System/Library/Frameworks/ImageIO.framework/Versions/A/ImageIO                                 │ Системная        │ N/A   │ N/A                                         │
+│ /System/Library/Frameworks/LinkPresentation.framework/Versions/A/LinkPresentation               │ Системная        │ Weak  │ N/A                                         │
+│ /System/Library/Frameworks/MetalPerformanceShaders.framework/Versions/A/MetalPerformanceShaders │ Системная        │ N/A   │ N/A                                         │
+│ /System/Library/Frameworks/NaturalLanguage.framework/Versions/A/NaturalLanguage                 │ Системная        │ Weak  │ N/A                                         │
+│ /System/Library/Frameworks/Network.framework/Versions/A/Network                                 │ Системная        │ Weak  │ N/A                                         │
+│ /System/Library/Frameworks/PassKit.framework/Versions/A/PassKit                                 │ Системная        │ Weak  │ N/A                                         │
+│ /System/Library/Frameworks/StoreKit.framework/Versions/A/StoreKit                               │ Системная        │ N/A   │ N/A                                         │
+│ /System/Library/Frameworks/SystemConfiguration.framework/Versions/A/SystemConfiguration         │ Системная        │ N/A   │ N/A                                         │
+│ /System/Library/Frameworks/UserNotifications.framework/Versions/A/UserNotifications             │ Системная        │ Weak  │ N/A                                         │
+│ /System/Library/Frameworks/Vision.framework/Versions/A/Vision                                   │ Системная        │ N/A   │ N/A                                         │
+│ /usr/lib/libcompression.dylib                                                                   │ Системная        │ N/A   │ N/A                                         │
+│ /usr/lib/swift/libswiftCompression.dylib                                                        │ Системная        │ Weak  │ N/A                                         │
+│ /usr/lib/swift/libswiftCoreMIDI.dylib                                                           │ Системная        │ Weak  │ N/A                                         │
+│ /usr/lib/swift/libswiftCoreML.dylib                                                             │ Системная        │ Weak  │ N/A                                         │
+│ /usr/lib/swift/libswiftCoreMediaIO.dylib                                                        │ Системная        │ Weak  │ N/A                                         │
+│ /usr/lib/swift/libswiftOSLog.dylib                                                              │ Системная        │ Weak  │ N/A                                         │
+│ /usr/lib/swift/libswiftPassKit.dylib                                                            │ Системная        │ Weak  │ N/A                                         │
+│ /usr/lib/swift/libswiftQuickLookUI.dylib                                                        │ Системная        │ Weak  │ N/A                                         │
+│ /usr/lib/swift/libswiftUniformTypeIdentifiers.dylib                                             │ Системная        │ Weak  │ N/A                                         │
+│ /usr/lib/swift/libswiftVideoToolbox.dylib                                                       │ Системная        │ Weak  │ N/A                                         │
+│ /usr/lib/swift/libswiftWebKit.dylib                                                             │ Системная        │ Weak  │ N/A                                         │
+│ @rpath/libswiftAVFoundation.dylib                                                               │ Пользовательская │ Weak  │ @rpath/libswiftAVFoundation.dylib           │
+│ @rpath/libswiftAccelerate.dylib                                                                 │ Пользовательская │ Weak  │ @rpath/libswiftAccelerate.dylib             │
+│ @rpath/libswiftCore.dylib                                                                       │ Пользовательская │ N/A   │ @rpath/libswiftCore.dylib                   │
+│ @rpath/libswiftCoreAudio.dylib                                                                  │ Пользовательская │ N/A   │ @rpath/libswiftCoreAudio.dylib              │
+│ @rpath/libswiftCoreFoundation.dylib                                                             │ Пользовательская │ N/A   │ @rpath/libswiftCoreFoundation.dylib         │
+│ @rpath/libswiftCoreGraphics.dylib                                                               │ Пользовательская │ N/A   │ @rpath/libswiftCoreGraphics.dylib           │
+│ @rpath/libswiftCoreImage.dylib                                                                  │ Пользовательская │ Weak  │ @rpath/libswiftCoreImage.dylib              │
+│ @rpath/libswiftCoreLocation.dylib                                                               │ Пользовательская │ Weak  │ @rpath/libswiftCoreLocation.dylib           │
+│ @rpath/libswiftCoreMedia.dylib                                                                  │ Пользовательская │ N/A   │ @rpath/libswiftCoreMedia.dylib              │
+│ @rpath/libswiftDarwin.dylib                                                                     │ Пользовательская │ N/A   │ @rpath/libswiftDarwin.dylib                 │
+│ @rpath/libswiftDispatch.dylib                                                                   │ Пользовательская │ N/A   │ @rpath/libswiftDispatch.dylib               │
+│ @rpath/libswiftGLKit.dylib                                                                      │ Пользовательская │ Weak  │ @rpath/libswiftGLKit.dylib                  │
+│ @rpath/libswiftIOKit.dylib                                                                      │ Пользовательская │ Weak  │ @rpath/libswiftIOKit.dylib                  │
+│ @rpath/libswiftMapKit.dylib                                                                     │ Пользовательская │ Weak  │ @rpath/libswiftMapKit.dylib                 │
+│ @rpath/libswiftMetal.dylib                                                                      │ Пользовательская │ Weak  │ @rpath/libswiftMetal.dylib                  │
+│ @rpath/libswiftMetalKit.dylib                                                                   │ Пользовательская │ Weak  │ @rpath/libswiftMetalKit.dylib               │
+│ @rpath/libswiftModelIO.dylib                                                                    │ Пользовательская │ Weak  │ @rpath/libswiftModelIO.dylib                │
+│ @rpath/libswiftNaturalLanguage.dylib                                                            │ Пользовательская │ Weak  │ @rpath/libswiftNaturalLanguage.dylib        │
+│ @rpath/libswiftObjectiveC.dylib                                                                 │ Пользовательская │ N/A   │ @rpath/libswiftObjectiveC.dylib             │
+│ @rpath/libswiftQuartzCore.dylib                                                                 │ Пользовательская │ N/A   │ @rpath/libswiftQuartzCore.dylib             │
+│ @rpath/libswiftSceneKit.dylib                                                                   │ Пользовательская │ N/A   │ @rpath/libswiftSceneKit.dylib               │
+│ @rpath/libswiftVision.dylib                                                                     │ Пользовательская │ Weak  │ @rpath/libswiftVision.dylib                 │
+│ @rpath/libswiftXPC.dylib                                                                        │ Пользовательская │ Weak  │ @rpath/libswiftXPC.dylib                    │
+│ @rpath/libswiftos.dylib                                                                         │ Пользовательская │ Weak  │ @rpath/libswiftos.dylib                     │
+│ @rpath/libswiftsimd.dylib                                                                       │ Пользовательская │ Weak  │ @rpath/libswiftsimd.dylib                   │
+│ @rpath/libswiftFoundation.dylib                                                                 │ Пользовательская │ N/A   │ @rpath/libswiftFoundation.dylib             │
+└─────────────────────────────────────────────────────────────────────────────────────────────────┴──────────────────┴───────┴─────────────────────────────────────────────┘
+```
+
+#### Преимущества для статического анализа
+
+1. **Анализ зависимостей**
+   - Быстрое определение всех используемых библиотек
+   - Выявление подозрительных или нестандартных зависимостей
+   - Анализ слабых ссылок, которые могут быть использованы для инъекций
+   - Обнаружение реэкспортируемых библиотек, что может указывать на обфускацию
+
+2. **Поиск уязвимых функций**
+   - Автоматическое выявление небезопасных функций (strcpy, gets и т.д.)
+   - Анализ потенциальных точек инъекции
+   - Определение функций, связанных с отладкой и анти-отладкой
+   - Выявление функций для работы с памятью, которые могут быть уязвимы
+
+3. **Анализ экспортируемых символов**
+   - Определение публичного API приложения
+   - Поиск скрытых или недокументированных функций
+   - Выявление потенциальных бэкдоров через экспортируемые функции
+   - Анализ именования функций для определения их назначения
+
+4. **Безопасность и обфускация**
+   - Обнаружение техник обфускации через анализ символов
+   - Выявление попыток скрытия функциональности
+   - Анализ слабых символов, которые могут быть перехвачены
+   - Определение приватных функций, которые могут содержать скрытую логику
+
+5. **Отладка и анализ**
+   - Быстрое определение точек входа в программу
+   - Поиск функций, связанных с обработкой ошибок
+   - Анализ цепочки вызовов функций
+   - Определение критических участков кода
