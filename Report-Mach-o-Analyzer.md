@@ -1609,18 +1609,8 @@ class MachOPlugin(ABC):
 │ Memory_method      │ 0x1e2     │ 128    │ NSt3__110__function6__funcIZN7cricket8TurnPort22CreateTurnClientSocketEvE3$_4NS_9allocatorIS4_EEFvPN... │ Нет                   │
 │ ObjC_method        │ 0x1fd     │ 50     │ ZN7cricket8TurnPort22CreateTurnClientSocketEvE3$_4                                                      │ Нет                   │
 ...
-│ Sensitive_api_key  │ 0x4891a8b │ 31     │ Secret: T@"NSRegularExpression"                                                                          │ Нет                   │
+│ Sensitive_api_key  │ 0x4891a8b │ 31     │ Secret:T@"NSRegularExpression"                                                                          │ Нет                   │
 └────────────────────┴───────────┴────────┴─────────────────────────────────────────────────────────────────────────────────────────────────────────┴───────────────────────┘
-
-Секция: __swift5_typeref
-Смещение: 0x48c9745
-Размер: 18192 байт
-┏━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━┳━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━┓
-┃ Тип                ┃ Смещение  ┃ Размер ┃ Содержимое                                      ┃ Чувствительные данные ┃
-┡━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━╇━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━┩
-│ Sensitive_password │ 0x48c9745 │ 9096   │ Key: uniforms unique uniqueID uniqueId uniqueKey u... │ Нет                   │
-│ Sensitive_password │ 0x48c9745 │ 9096   │ Key: uniforms unique uniqueID uniqueId uniqueKey u... │ Нет                   │
-└────────────────────┴───────────┴────────┴─────────────────────────────────────────────────┴───────────────────────┘
 
 Секция: __cstring
 Смещение: 0x14
@@ -1634,7 +1624,6 @@ class MachOPlugin(ABC):
 │ Encoded_data        │ 0x24c     │ 53     │ SaySo39OngoingGroupCallMediaChannelDescriptionCGIegg_                                                   │ Нет                   │
 │ Encoded_data        │ 0x50a     │ 40     │ $s12TelegramVoip21SharedHLSServerSourceP                                                                │ Нет                   │
 ...
-│ Crypto_RSA_E        │ 0x4af4a78 │ 3      │                                                        │ Нет                   │
 └─────────────────────┴───────────┴────────┴───────────────────────────────────────────────────────┴───────────────────────┘
 
 ```
